@@ -1,24 +1,26 @@
-<mat-card>
-  <mat-card-header>
-    <mat-card-title> Login to Project Issue Tracker </mat-card-title>
-  </mat-card-header>
-  <mat-card-content>
-    <form [formGroup]="loginForm">
-      <mat-form-field>
-        <mat-label>Email</mat-label>
-        <input matInput formControlName="email" required />
-      </mat-form-field>
-      <mat-form-field>
-        <mat-label>Password</mat-label>
-        <input matInput type="password" formControlName="password" required />
-      </mat-form-field>
-    </form>
-    <button (click)="login()" color="primary" mat-raised-button>Login</button>
-    <div style="margin-top: 10px"></div>
-    <span
-      >Don't have an account?<a mat-flat-button color="secondary">
-        Register
-      </a></span
-    >
-  </mat-card-content>
-</mat-card>
+<div class="login">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title> Login to Project Issue Tracker </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <form [formGroup]="loginForm">
+        <mat-form-field>
+          <mat-label>Email</mat-label>
+          <input matInput formControlName="email" required />
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Password</mat-label>
+          <input matInput type="password" formControlName="password" required />
+        </mat-form-field>
+      </form>
+      <button (click)="login()" color="primary" mat-raised-button>Login</button>
+      <div style="margin-top: 10px"></div>
+      <span
+        >Don't have an account?<a mat-flat-button color="secondary">
+          Register
+        </a></span
+      >
+    </mat-card-content>
+  </mat-card>
+</div>
