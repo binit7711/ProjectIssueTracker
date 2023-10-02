@@ -15,6 +15,7 @@ import {
 } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-login',
   standalone: true,
@@ -35,6 +36,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 export class LoginComponent implements OnInit {
   private readonly authService = inject(AuthService);
   private readonly snackBar = inject(MatSnackBar);
+  private readonly router = inject(Router);
   user!: UserLogin;
   loginForm!: FormGroup;
   ngOnInit(): void {
@@ -49,6 +51,27 @@ export class LoginComponent implements OnInit {
     });
   }
   login(): void {
-    this.authService.login(this.loginForm.value);
+    this.authService.login(this.loginForm.value).subscribe({
+      next: (data) => {
+        console.log(data);
+        this.authService.authState.set(data);
+
+        this.router.navigate(['home']);
+
+        console.log('test');
+      },
+      error: (err) => {
+        console.log(err);
+        this.snackBar.open(
+          err?.error?.errors?.['Email'] ||
+            err?.error?.errors?.['Password'] ||
+            err?.error,
+          'Close',
+          {
+            duration: 3000,
+          }
+        );
+      },
+    });
   }
 }
