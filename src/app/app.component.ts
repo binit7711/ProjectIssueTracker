@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LoginComponent } from './components/auth/login/login.component';
 import { RouterModule } from '@angular/router';
@@ -9,7 +9,7 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 @Component({
   selector: 'app-root',
   standalone: true,
-  providers: [AuthService],
+  providers: [],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
   imports: [
@@ -20,7 +20,12 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
     MatSnackBarModule,
   ],
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'ProjectIssueTracker';
-  constructor(private _snackBar: MatSnackBar) {}
+  private readonly authService = inject(AuthService);
+
+  ngOnInit(): void {
+    const user = JSON.parse(localStorage.getItem('user') as string) || null;
+    this.authService.authState.set({ user: user.user, token: user.token });
+  }
 }

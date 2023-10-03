@@ -2,13 +2,19 @@ import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatSidenavModule } from '@angular/material/sidenav';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, HttpClientModule, MatSnackBarModule],
-  providers: [AuthService],
+  imports: [
+    CommonModule,
+    HttpClientModule,
+    MatSnackBarModule,
+    MatSidenavModule,
+  ],
+  providers: [],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
 })

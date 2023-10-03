@@ -29,7 +29,7 @@ import { Router } from '@angular/router';
     HttpClientModule,
     MatSnackBarModule,
   ],
-  providers: [AuthService],
+  providers: [],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
 })
@@ -40,6 +40,7 @@ export class LoginComponent implements OnInit {
   user!: UserLogin;
   loginForm!: FormGroup;
   ngOnInit(): void {
+    console.log(this.authService.isAuthenticated());
     this.initLoginForm();
   }
   initLoginForm(): void {
@@ -55,7 +56,10 @@ export class LoginComponent implements OnInit {
       next: (data) => {
         console.log(data);
         this.authService.authState.set(data);
-
+        localStorage.setItem(
+          'user',
+          JSON.stringify(this.authService.authState())
+        );
         this.router.navigate(['home']);
 
         console.log('test');

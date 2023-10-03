@@ -1,26 +1,37 @@
-<mat-card>
-  <mat-card-header>
-    <mat-card-title> Register for Project Issue Tracker </mat-card-title>
-  </mat-card-header>
-  <mat-card-content>
-    <form [formGroup]="registerForm">
-      <mat-form-field>
-        <mat-label>Email</mat-label>
-        <input matInput formControlName="email" required />
-      </mat-form-field>
-      <mat-form-field>
-        <mat-label>Password</mat-label>
-        <input matInput type="password" formControlName="password" required />
-      </mat-form-field>
-    </form>
-    <button (click)="register()" color="primary" mat-raised-button>
-      Login
-    </button>
-    <div style="margin-top: 10px"></div>
-    <span
-      >Don't have an account?<a mat-flat-button color="secondary">
+<div class="register">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title> Register for Project Issue Tracker </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <form [formGroup]="registerForm">
+        <mat-form-field>
+          <mat-label>Name</mat-label>
+          <input matInput formControlName="name" required />
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Email</mat-label>
+          <input matInput formControlName="email" required />
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Password</mat-label>
+          <input matInput type="password" formControlName="password" required />
+          <!-- <div *ngIf="registerForm">Name is required.</div> -->
+        </mat-form-field>
+      </form>
+      <button (click)="register()" color="primary" mat-raised-button>
         Register
-      </a></span
-    >
-  </mat-card-content>
-</mat-card>
+      </button>
+      <div style="margin-top: 10px"></div>
+      <span
+        >Already have an Account?<a
+          routerLink="/login"
+          mat-flat-button
+          color="secondary"
+        >
+          Login
+        </a></span
+      >
+    </mat-card-content>
+  </mat-card>
+</div>

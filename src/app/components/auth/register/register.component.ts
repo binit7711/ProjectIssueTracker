@@ -14,6 +14,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -27,8 +28,9 @@ import { MatInputModule } from '@angular/material/input';
     ReactiveFormsModule,
     HttpClientModule,
     MatSnackBarModule,
+    RouterModule,
   ],
-  providers: [AuthService],
+  providers: [],
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss'],
 })
@@ -36,7 +38,11 @@ export class RegisterComponent {
   private readonly authService = inject(AuthService);
   private readonly snackBar = inject(MatSnackBar);
   user!: UserRegister;
-  registerForm!: FormGroup;
+  registerForm!: FormGroup<{
+    email: FormControl<string | null>;
+    password: FormControl<string | null>;
+    name: FormControl<string | null>;
+  }>;
   ngOnInit(): void {
     this.initRegisterForm();
   }
@@ -50,9 +56,9 @@ export class RegisterComponent {
     });
   }
   register(): void {
-    if (this.registerForm.errors) {
-      console.log(this.registerForm.errors);
-      // this.authService.register(this.registerForm.value);
-    }
+    console.log(this.registerForm.value);
+    Object.keys(this.registerForm.controls).forEach((key) => {
+      console.log(this.registerForm.get(key)?.errors);
+    });
   }
 }
