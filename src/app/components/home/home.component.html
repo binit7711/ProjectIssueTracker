@@ -1,29 +1,27 @@
 <mat-toolbar>
-  <button
-    mat-icon-button
-    class="example-icon"
-    aria-label="Example icon-button with menu icon"
-  >
+  <button (click)="sidenav.toggle()" mat-icon-button>
     <mat-icon>menu</mat-icon>
   </button>
-  <span>My App</span>
-  <span class="example-spacer"></span>
-  <button
-    mat-icon-button
-    class="example-icon favorite-icon"
-    aria-label="Example icon-button with heart icon"
-  >
-    <mat-icon>favorite</mat-icon>
-  </button>
-  <button
-    mat-icon-button
-    class="example-icon"
-    aria-label="Example icon-button with share icon"
-  >
-    <mat-icon>share</mat-icon>
-  </button>
+  <span>Project Issue Tracker</span>
 </mat-toolbar>
-<mat-sidenav-container>
-  <mat-sidenav>Start</mat-sidenav>
-  <mat-sidenav-content> Nothing </mat-sidenav-content>
+<mat-sidenav-container class="example-container">
+  <mat-sidenav #sidenav mode="side" [(opened)]="opened">
+    <div class="sidenav-menu">
+      <button
+        mat-flat-button
+        routerLink="your-projects"
+        routerLinkActive="mat-primary"
+      >
+        Your Projects
+      </button>
+      <button mat-flat-button>Other Projects</button>
+      <button mat-flat-button>Your Issues</button>
+      <button mat-flat-button>Your Comments</button>
+      <button mat-flat-button>Profile</button>
+    </div>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
 </mat-sidenav-container>

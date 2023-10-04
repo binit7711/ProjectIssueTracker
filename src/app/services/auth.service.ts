@@ -27,6 +27,7 @@ export class AuthService {
   isAuthenticated = computed(() => this.authState().token !== '');
 
   getToken = computed(() => this.authState().token);
+  getUser = computed(() => this.authState().user);
 
   login(user: UserLogin) {
     return this.httpClient.post<{ token: string; user: User }>(
