@@ -52,4 +52,16 @@ export class ProjectsStore {
         next: (_) => this.fetchProjectsForUser(),
       });
   }
+
+  deleteProjectForUser(projectId: string) {
+    this.httpClient
+      .delete('https://localhost:7268/api/projects/' + projectId, {})
+      .subscribe({
+        next: (_) => this.fetchProjectsForUser(),
+      });
+  }
+
+  // addCollaboratorToProject({projectId:number,userId:number}){
+  //   this.httpClient.post("https://localhost:7268/api/projects/user")
+  // }
 }
