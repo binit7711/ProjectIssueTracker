@@ -9,10 +9,10 @@
     <!-- </mat-card-subtitle> -->
   </mat-card-content>
   <mat-card-actions>
-    <button mat-flat-button color="primary" (click)="navigate(project.id)">
-      OPEN
-    </button>
+    <button mat-flat-button color="primary" (click)="navigate()">OPEN</button>
     <span class="spacer"></span>
-    <button mat-flat-button color="warn">DELETE</button>
+    <button mat-flat-button color="warn" (click)="deleteProject(project)">
+      DELETE
+    </button>
   </mat-card-actions>
 </mat-card>
