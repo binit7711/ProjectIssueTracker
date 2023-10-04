@@ -3,14 +3,22 @@ import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/auth/login/login.component';
 import { RegisterComponent } from './components/auth/register/register.component';
 import { authGuard, isLoggedIn } from './services/auth.constant';
+import { ProjectsComponent } from './components/projects/projects.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   {
     path: 'home',
     component: HomeComponent,
-    pathMatch: 'full',
+    // pathMatch: 'full',
     canActivate: [authGuard],
+    children: [
+      {
+        path: 'your-projects',
+        component: ProjectsComponent,
+        pathMatch: 'full',
+      },
+    ],
   },
   {
     path: 'login',
