@@ -1,0 +1,7 @@
+<mat-dialog-content>
+  Are you sure you want to delete {{ project.name }}?
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-raised-button mat-dialog-close>Cancel</button>
+  <button (click)="onDelete()" mat-raised-button color="warn">Delete</button>
+</mat-dialog-actions>
