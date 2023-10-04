@@ -12,13 +12,15 @@ export const routes: Routes = [
     component: HomeComponent,
     // pathMatch: 'full',
     canActivate: [authGuard],
-    children: [
-      {
-        path: 'your-projects',
-        component: ProjectsComponent,
-        pathMatch: 'full',
-      },
-    ],
+    loadChildren: () =>
+      import('./components/projects/projects.route').then((p) => p.routes),
+    // children: [
+    //   {
+    //     path: 'your-projects',
+    //     component: ProjectsComponent,
+    //     pathMatch: 'full',
+    //   },
+    // ],
   },
   {
     path: 'login',
