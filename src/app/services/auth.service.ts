@@ -29,6 +29,18 @@ export class AuthService {
   getToken = computed(() => this.authState().token);
   getUser = computed(() => this.authState().user);
 
+  logout = () => {
+    this.authState.set({
+      token: '',
+      user: {
+        email: '',
+        id: '',
+        name: '',
+      },
+    });
+    localStorage.removeItem('user');
+  };
+
   login(user: UserLogin) {
     return this.httpClient.post<{ token: string; user: User }>(
       'https://localhost:7268/api/auth/login',
@@ -37,7 +49,7 @@ export class AuthService {
   }
 
   register(user: UserRegister) {
-    return this.httpClient.post(
+    return this.httpClient.post<{ token: string; user: User }>(
       'https://localhost:7268/api/auth/register',
       user
     );
