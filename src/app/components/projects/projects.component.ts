@@ -9,7 +9,7 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 @Component({
   selector: 'app-projects',
   standalone: true,
-  providers: [ProjectsStore],
+  providers: [],
   templateUrl: './projects.component.html',
   styleUrls: ['./projects.component.scss'],
   imports: [
