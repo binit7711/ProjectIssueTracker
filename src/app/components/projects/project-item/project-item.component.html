@@ -1,0 +1,22 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>
+      {{ project.name }}
+    </mat-card-title>
+    <mat-card-subtitle>Owner name : {{ project.ownerName }}</mat-card-subtitle>
+    <button *ngIf="isOwner" mat-button>Edit Project Details</button>
+  </mat-card-header>
+  <mat-card-content>
+    {{ project.description }}
+    <mat-tab-group>
+      <mat-tab label="Collaborators">
+        <button mat-button (click)="openAddCollaboratorDialog()">
+          Add Collaborator
+        </button>
+        <!-- <ng-template *ngFor="let collaborator of project.collaborators">
+        </ng-template> -->
+      </mat-tab>
+      <mat-tab label="Issues"> Content 2 </mat-tab>
+    </mat-tab-group>
+  </mat-card-content>
+</mat-card>
