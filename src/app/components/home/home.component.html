@@ -1,8 +1,37 @@
 <mat-toolbar>
-  <button (click)="sidenav.toggle()" mat-icon-button>
-    <mat-icon>menu</mat-icon>
-  </button>
-  <span>Project Issue Tracker</span>
+  <div style="display: flex; justify-content: center; align-items: center">
+    <!-- <button (click)="sidenav.toggle()" mat-icon-button>
+      <mat-icon>menu</mat-icon>
+    </button> -->
+    <span>Project Issue Tracker</span>
+  </div>
+  <div style="display: flex; justify-content: center; align-items: center">
+    Create
+    <button mat-icon-button [matMenuTriggerFor]="createProjectMenu">
+      <mat-icon>add</mat-icon>
+    </button>
+    Welcome {{ userName }}
+    <button
+      mat-icon-button
+      [matMenuTriggerFor]="menu"
+      aria-label="logout settings"
+    >
+      <mat-icon>person</mat-icon>
+    </button>
+  </div>
+  <mat-menu #createProjectMenu="matMenu">
+    <button (click)="openProjectCreateOrUpdateDialog()" mat-menu-item>
+      <mat-icon>add</mat-icon>
+      <span>Create Project</span>
+    </button>
+  </mat-menu>
+
+  <mat-menu #menu="matMenu">
+    <button (click)="logout()" mat-menu-item>
+      <mat-icon>logout</mat-icon>
+      <span>Logout</span>
+    </button>
+  </mat-menu>
 </mat-toolbar>
 <mat-sidenav-container class="example-container">
   <mat-sidenav #sidenav mode="side" [(opened)]="opened">

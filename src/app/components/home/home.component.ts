@@ -10,7 +10,11 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule, NgModel } from '@angular/forms';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
+import { ProjectsStore } from 'src/app/services/projects.store';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { CreateOrUpdateDialogComponent } from '../projects/forms/create-or-update-dialog/create-or-update-dialog.component';
 
 @Component({
   selector: 'app-home',
@@ -27,29 +31,41 @@ import { RouterModule } from '@angular/router';
     MatFormFieldModule,
     FormsModule,
     RouterModule,
+    MatMenuModule,
+    MatDialogModule,
   ],
-  providers: [],
+  providers: [ProjectsStore],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent {
   private readonly httpClient = inject(HttpClient);
   private readonly snackBar = inject(MatSnackBar);
   private readonly authService = inject(AuthService);
-
+  private readonly route = inject(Router);
+  readonly dialog = inject(MatDialog);
+  private readonly projectStore = inject(ProjectsStore);
   events: string[] = [];
-  opened: boolean = false;
+  opened: boolean = true;
+  userName = this.authService.getUser().name;
 
-  constructor() {
-    console.log('test hello');
+  logout() {
+    this.authService.logout();
+    this.route.navigate(['login']);
   }
 
-  ngOnInit(): void {
-    // this.httpClient
-    //   .get(
-    //     'https://localhost:7268/api/projects/user/' +
-    //       this.authService.authState().user.id
-    //   )
-    //   .subscribe((value) => console.log(value));
+  openProjectCreateOrUpdateDialog() {
+    const dialogRef = this.dialog.open(CreateOrUpdateDialogComponent, {
+      data: {},
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result.data) {
+        this.projectStore.createProjectForUser({
+          ...result.data,
+          ownerId: this.authService.getUser().id,
+        });
+      }
+    });
   }
 }
