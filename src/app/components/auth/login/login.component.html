@@ -17,7 +17,11 @@
       <button (click)="login()" color="primary" mat-raised-button>Login</button>
       <div style="margin-top: 10px"></div>
       <span
-        >Don't have an account?<a mat-flat-button color="secondary">
+        >Don't have an account?<a
+          routerLink="/register"
+          mat-flat-button
+          color="secondary"
+        >
           Register
         </a></span
       >

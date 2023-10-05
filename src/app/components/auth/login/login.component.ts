@@ -15,7 +15,7 @@ import {
 } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 @Component({
   selector: 'app-login',
   standalone: true,
@@ -28,6 +28,7 @@ import { Router } from '@angular/router';
     ReactiveFormsModule,
     HttpClientModule,
     MatSnackBarModule,
+    RouterModule,
   ],
   providers: [],
   templateUrl: './login.component.html',
