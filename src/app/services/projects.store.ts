@@ -10,12 +10,17 @@ import {
 import { Project } from '../components/projects/project.model';
 import { AuthService } from './auth.service';
 import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environment';
 
 export type ProjectsState = {
   projects: Project[];
 };
 
 type ProjectCreate = Omit<Project, 'id' | 'ownerName'> & {
+  ownerId: string;
+};
+
+export type ProjectWithOwnerId = Project & {
   ownerId: string;
 };
 
@@ -32,20 +37,20 @@ export class ProjectsStore {
   fetchProjectsForUser(): void {
     this.httpClient
       .get<Project[]>(
-        'https://localhost:7268/api/projects/user/' +
-          this.authService.getUser().id
+        `${environment.baseUrl}/projects/user/${this.authService.getUser().id}`
       )
       .subscribe({
         next: (value) => {
           this.state.set({ projects: value });
           console.log('called from fetchprojects', this.projects());
+          console.log(value);
         },
       });
   }
 
   createProjectForUser(project: ProjectCreate): void {
     this.httpClient
-      .post('https://localhost:7268/api/projects/user/', {
+      .post(`${environment.baseUrl}/projects`, {
         ...project,
       })
       .subscribe({
@@ -59,6 +64,13 @@ export class ProjectsStore {
       .subscribe({
         next: (_) => this.fetchProjectsForUser(),
       });
+  }
+
+  getProject(projectId: string) {
+    console.log(projectId);
+    return this.httpClient.get<ProjectWithOwnerId>(
+      'https://localhost:7268/api/projects/' + projectId
+    );
   }
 
   // addCollaboratorToProject({projectId:number,userId:number}){
