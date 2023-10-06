@@ -5,19 +5,21 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { Project } from './project.model';
 import { ProjectCardComponent } from './project-card/project-card.component';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { GreetingCardComponent } from "../card/greeting-card/greeting-card.component";
 
 @Component({
-  selector: 'app-projects',
-  standalone: true,
-  providers: [],
-  templateUrl: './projects.component.html',
-  styleUrls: ['./projects.component.scss'],
-  imports: [
-    CommonModule,
-    ProjectCardComponent,
-    MatGridListModule,
-    MatDialogModule,
-  ],
+    selector: 'app-projects',
+    standalone: true,
+    providers: [],
+    templateUrl: './projects.component.html',
+    styleUrls: ['./projects.component.scss'],
+    imports: [
+        CommonModule,
+        ProjectCardComponent,
+        MatGridListModule,
+        MatDialogModule,
+        GreetingCardComponent
+    ]
 })
 export class ProjectsComponent implements OnInit {
   projectsStore = inject(ProjectsStore);

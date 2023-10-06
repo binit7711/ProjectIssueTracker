@@ -1,3 +1,5 @@
+@use "sass:map";
+@use "@angular/material" as mat;
 .example-container {
   width: 100%;
   height: 90%;
@@ -7,18 +9,19 @@
   padding-top: 1rem;
   padding-left: 2px;
   padding-right: 2px;
-  display: flex;
-  flex-direction: column;
-}
+  // display: flex;
+  // flex-direction: column;
+  width: 200px;
 
-.sidenav-menu > button {
-  align-self: flex-start;
-  width: 100%;
-  //   align-content: start;
+  button {
+    justify-content: flex-start;
+    width: 100%;
+  }
 }
 
 mat-sidenav-content {
   display: flex;
+  justify-content: center;
 }
 
 mat-toolbar {
@@ -26,4 +29,8 @@ mat-toolbar {
   // align-items: center;
   // justify-content: space-between;
   justify-content: space-between;
+}
+
+.mat-button {
+  background: green;
 }

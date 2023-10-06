@@ -37,16 +37,29 @@
   <mat-sidenav #sidenav mode="side" [(opened)]="opened">
     <div class="sidenav-menu">
       <button
-        mat-flat-button
+        mat-raised-button
         routerLink="your-projects"
-        routerLinkActive="mat-primary"
+        routerLinkActive="mat-accent"
       >
-        Your Projects
+        <mat-icon> book </mat-icon>
+        Projects
       </button>
-      <button mat-flat-button>Other Projects</button>
-      <button mat-flat-button>Your Issues</button>
-      <button mat-flat-button>Your Comments</button>
-      <button mat-flat-button>Profile</button>
+      <button mat-button>
+        <mat-icon>group</mat-icon>
+        Collaborations
+      </button>
+      <button mat-button>
+        <mat-icon>flag</mat-icon>
+        Issues
+      </button>
+      <button mat-button>
+        <mat-icon>comment</mat-icon>
+        Comments
+      </button>
+      <button mat-button>
+        <mat-icon>account_circle</mat-icon>
+        Profile
+      </button>
     </div>
   </mat-sidenav>
 

@@ -8,6 +8,13 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
 import { ProjectsStore } from 'src/app/services/projects.store';
 import { Router } from '@angular/router';
+import {
+  trigger,
+  state,
+  style,
+  transition,
+  animate,
+} from '@angular/animations';
 
 @Component({
   selector: 'app-project-card',
@@ -21,12 +28,27 @@ import { Router } from '@angular/router';
   ],
   templateUrl: './project-card.component.html',
   styleUrls: ['./project-card.component.scss'],
+  animations: [
+    trigger('hoverBorder', [
+      // state('initial', style({ borderColor: 'transparent' })),
+      // state('hovered', style({ borderColor: '#007bff' })),
+      // transition('initial => hovered', animate('0.3s')),
+      // transition('hovered => initial', animate('0.3s')),
+    ]),
+  ],
 })
 export class ProjectCardComponent {
   readonly dialog = inject(MatDialog);
   private readonly router = inject(Router);
   private readonly projectStore = inject(ProjectsStore);
-  @Input() project: Project = {
+
+  hoverState = 'initial';
+
+  toggleHoverState() {
+    this.hoverState = this.hoverState === 'initial' ? 'hovered' : 'initial';
+  }
+
+  @Input() project: Omit<Project, 'issues'> = {
     id: '',
     name: '',
     description: '',

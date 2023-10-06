@@ -15,5 +15,11 @@
 
 <mat-dialog-actions align="end">
   <button mat-button mat-dialog-close>Cancel</button>
-  <button mat-button (click)="createOrUpdateProject()">Create</button>
+  <button
+    [disabled]="projectCreateOrUpdateForm.invalid"
+    mat-button
+    (click)="createOrUpdateProject()"
+  >
+    Create
+  </button>
 </mat-dialog-actions>

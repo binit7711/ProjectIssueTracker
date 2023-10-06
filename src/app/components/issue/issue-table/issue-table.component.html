@@ -1,0 +1,51 @@
+<table mat-table [dataSource]="issues">
+  <!-- Columns -->
+
+  <ng-container matColumnDef="id">
+    <th mat-header-cell *matHeaderCellDef>ID</th>
+    <td mat-cell *matCellDef="let issue">{{ issue.id }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="creatorName">
+    <th mat-header-cell *matHeaderCellDef>Creator Name</th>
+    <td mat-cell *matCellDef="let issue">{{ issue.creatorName }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="creatorEmail">
+    <th mat-header-cell *matHeaderCellDef>Creator Email</th>
+    <td mat-cell *matCellDef="let issue">{{ issue.creatorEmail }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="issueTitle">
+    <th mat-header-cell *matHeaderCellDef>Issue Title</th>
+    <td mat-cell *matCellDef="let issue">{{ issue.title }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="edit">
+    <th mat-header-cell *matHeaderCellDef>Edit</th>
+    <td mat-cell *matCellDef="let issue">
+      <button (click)="editIssue(issue)" mat-icon-button>
+        <mat-icon>edit</mat-icon>
+      </button>
+    </td>
+  </ng-container>
+
+  <!-- Column Definitions -->
+  <tr
+    mat-header-row
+    *matHeaderRowDef="[
+      'id',
+      'creatorName',
+      'creatorEmail',
+      'issueTitle',
+      'edit'
+    ]"
+  ></tr>
+  <tr
+    mat-row
+    *matRowDef="
+      let row;
+      columns: ['id', 'creatorName', 'creatorEmail', 'issueTitle', 'edit']
+    "
+  ></tr>
+</table>

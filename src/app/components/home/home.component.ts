@@ -15,6 +15,7 @@ import { ProjectsStore } from 'src/app/services/projects.store';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { CreateOrUpdateDialogComponent } from '../projects/forms/create-or-update-dialog/create-or-update-dialog.component';
+import { IssuesStore } from 'src/app/services/issues.store';
 
 @Component({
   selector: 'app-home',
@@ -34,7 +35,7 @@ import { CreateOrUpdateDialogComponent } from '../projects/forms/create-or-updat
     MatMenuModule,
     MatDialogModule,
   ],
-  providers: [ProjectsStore],
+  providers: [ProjectsStore, IssuesStore],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
 })
@@ -48,6 +49,7 @@ export class HomeComponent {
   events: string[] = [];
   opened: boolean = true;
   userName = this.authService.getUser().name;
+  activeClass = 'mat-accent bg-mat-accent';
 
   logout() {
     this.authService.logout();
