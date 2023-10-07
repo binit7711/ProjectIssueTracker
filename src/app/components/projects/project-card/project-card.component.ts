@@ -15,6 +15,8 @@ import {
   transition,
   animate,
 } from '@angular/animations';
+import { NzGridModule } from 'ng-zorro-antd/grid';
+import { NzCardModule } from 'ng-zorro-antd/card';
 
 @Component({
   selector: 'app-project-card',
@@ -25,7 +27,10 @@ import {
     MatGridListModule,
     MatButtonModule,
     MatDialogModule,
+    NzGridModule,
+    NzCardModule,
   ],
+
   templateUrl: './project-card.component.html',
   styleUrls: ['./project-card.component.scss'],
   animations: [

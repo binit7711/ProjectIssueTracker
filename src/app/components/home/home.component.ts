@@ -65,19 +65,4 @@ export class HomeComponent {
     this.authService.logout();
     this.route.navigate(['login']);
   }
-
-  openProjectCreateOrUpdateDialog() {
-    const dialogRef = this.dialog.open(CreateOrUpdateDialogComponent, {
-      data: {},
-    });
-
-    dialogRef.afterClosed().subscribe((result) => {
-      if (result.data) {
-        this.projectStore.createProjectForUser({
-          ...result.data,
-          ownerId: this.authService.getUser().id,
-        });
-      }
-    });
-  }
 }

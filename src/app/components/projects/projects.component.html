@@ -1,9 +1,26 @@
 <!-- <mat-grid-list cols="2" rowHeight="2:1"> -->
 <!-- <app-greeting-card></app-greeting-card> -->
-<h1 style="margin-left: 1rem; margin-top: 0.5rem; margin-bottom: -0.2rem">
-  Your Projects
-</h1>
+<div style="display: flex; justify-content: space-between; align-items: center">
+  <h1 style="margin-left: 1rem; margin-top: 0.5rem; margin-bottom: -0.2rem">
+    Your Projects
+  </h1>
+
+  <button
+    (click)="openProjectCreateOrUpdateDialog()"
+    nz-button
+    nzType="default"
+  >
+    <span nz-icon nzType="plus"></span>
+    Create Project
+  </button>
+</div>
 <span *ngFor="let project of projects()">
-  <app-project-card [project]="project"></app-project-card>
+  <div
+    style="display: flex; justify-content: center; align-items: center"
+    nz-row
+    [nzGutter]="16"
+  >
+    <app-project-card [project]="project"></app-project-card>
+  </div>
 </span>
 <!-- </mat-grid-list> -->
