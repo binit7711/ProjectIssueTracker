@@ -11,6 +11,8 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { CreateOrUpdateDialogComponent } from './forms/create-or-update-dialog/create-or-update-dialog.component';
 import { AuthService } from 'src/app/services/auth.service';
+import { NzPaginationModule } from 'ng-zorro-antd/pagination';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-projects',
@@ -27,15 +29,18 @@ import { AuthService } from 'src/app/services/auth.service';
     NzGridModule,
     NzButtonModule,
     NzIconModule,
+    NzPaginationModule,
   ],
 })
 export class ProjectsComponent implements OnInit {
   projectsStore = inject(ProjectsStore);
   private dialog = inject(MatDialog);
   projects = this.projectsStore.projects;
+  router = inject(Router);
+
   private authService = inject(AuthService);
   ngOnInit(): void {
-    this.projectsStore.fetchProjectsForUser();
+    this.projectsStore.fetchProjectsForUser(1);
   }
   openProjectCreateOrUpdateDialog() {
     const dialogRef = this.dialog.open(CreateOrUpdateDialogComponent, {

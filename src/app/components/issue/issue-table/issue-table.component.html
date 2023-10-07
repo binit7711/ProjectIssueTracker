@@ -1,5 +1,4 @@
-<table mat-table [dataSource]="issues">
-  <!-- Columns -->
+<!-- <table mat-table [dataSource]="issues">
 
   <ng-container matColumnDef="id">
     <th mat-header-cell *matHeaderCellDef>ID</th>
@@ -30,7 +29,6 @@
     </td>
   </ng-container>
 
-  <!-- Column Definitions -->
   <tr
     mat-header-row
     *matHeaderRowDef="[
@@ -48,4 +46,61 @@
       columns: ['id', 'creatorName', 'creatorEmail', 'issueTitle', 'edit']
     "
   ></tr>
-</table>
+</table> -->
+
+<nz-table [nzFrontPagination]="false" #basicTable [nzData]="issues">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Title</th>
+      <!-- <th>Description</th> -->
+      <th>Created By</th>
+      <th>Status</th>
+      <!-- <th>Details</th> -->
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let data of basicTable.data">
+      <td>{{ data.id }}</td>
+      <td>{{ data.title }}</td>
+      <!-- <td>{{ data.description }}</td> -->
+      <td>{{ data.creatorName }}</td>
+      <td>{{ option[data.status] }}</td>
+      <!-- <td>
+        <a (click)="editIssue(data)">Edit</a>
+      </td> -->
+      <td>
+        <!-- <nz-divider nzType="vertical"></nz-divider>
+        <a>Delete</a> -->
+        <a
+          nzType="primary"
+          nz-button
+          nz-dropdown
+          [nzDropdownMenu]="menu"
+          nzTrigger="click"
+          nzPlacement="bottomRight"
+        >
+          <span nz-icon nzType="ellipsis"></span>
+        </a>
+        <nz-dropdown-menu #menu="nzDropdownMenu">
+          <ul nz-menu>
+            <li style="padding-left: 1rem; padding-right: 1rem" nz-menu-item>
+              <a>View</a>
+            </li>
+            <li
+              (click)="editIssue(data)"
+              style="padding-left: 1rem; padding-right: 1rem"
+              nz-menu-item
+            >
+              <a>Edit</a>
+            </li>
+            <li style="padding-left: 1rem; padding-right: 1rem" nz-menu-item>
+              <a>Delete</a>
+            </li>
+          </ul>
+        </nz-dropdown-menu>
+      </td>
+    </tr>
+  </tbody>
+</nz-table>

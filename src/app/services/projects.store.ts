@@ -14,6 +14,7 @@ import { environment } from 'src/environment';
 
 export type ProjectsState = {
   projects: Project[];
+  totalProjects?: number;
 };
 
 type ProjectCreate = Omit<Project, 'id' | 'ownerName'> & {
@@ -30,18 +31,42 @@ export class ProjectsStore {
   private readonly httpClient = inject(HttpClient);
   private state: WritableSignal<ProjectsState> = signal<ProjectsState>({
     projects: [],
+    totalProjects: 0,
   });
+  pageNumber = 1;
+  pageSize = 9;
 
   projects = computed(() => this.state().projects);
+  totalProjects = computed(() => this.state().totalProjects);
 
-  fetchProjectsForUser(): void {
+  fetchProjectsForUser(pageIndex: number): void {
+    if (pageIndex < 1) {
+      this.pageNumber = 1;
+    } else {
+      this.pageNumber = pageIndex;
+    }
     this.httpClient
       .get<Project[]>(
-        `${environment.baseUrl}/projects/user/${this.authService.getUser().id}`
+        `${environment.baseUrl}/projects/user/${
+          this.authService.getUser().id
+        }/?pageNumber=${this.pageNumber}&pageSize=${this.pageSize}`
       )
       .subscribe({
         next: (value) => {
-          this.state.set({ projects: value });
+          this.getPageCount().subscribe({
+            next: (value) => {
+              console.log(value);
+              this.state.set({
+                projects: this.state().projects,
+                totalProjects: value.count,
+              });
+            },
+          });
+          this.state.set({
+            projects: value,
+            totalProjects: this.state().totalProjects,
+          });
+          console.log(this.state().totalProjects);
           console.log('called from fetchprojects', this.projects());
           console.log(value);
         },
@@ -54,7 +79,7 @@ export class ProjectsStore {
         ...project,
       })
       .subscribe({
-        next: (_) => this.fetchProjectsForUser(),
+        next: (_) => this.fetchProjectsForUser(this.pageNumber),
       });
   }
 
@@ -62,7 +87,7 @@ export class ProjectsStore {
     this.httpClient
       .delete('https://localhost:7268/api/projects/' + projectId, {})
       .subscribe({
-        next: (_) => this.fetchProjectsForUser(),
+        next: (_) => this.fetchProjectsForUser(this.pageNumber),
       });
   }
 
@@ -70,6 +95,14 @@ export class ProjectsStore {
     console.log(projectId);
     return this.httpClient.get<ProjectWithOwnerId>(
       'https://localhost:7268/api/projects/' + projectId
+    );
+  }
+
+  getPageCount() {
+    return this.httpClient.get<{ count: number }>(
+      `${environment.baseUrl}/projects/user/${
+        this.authService.getUser().id
+      }/count`
     );
   }
 

@@ -1,21 +1,25 @@
-<!-- <mat-card class="my-custom-card" (click)="navigate()">
-  <mat-card-header>
-    <mat-card-title>{{ project.name }}</mat-card-title>
-  </mat-card-header>
-  <mat-card-content>
-    <p>{{ project.description }}</p>
-  </mat-card-content>
-
-</mat-card> -->
-<!-- <div nz-row [nzGutter]="8"> -->
-<div style="margin: 1rem" nz-col [nzSpan]="8">
+<div style="margin: 0.5rem" nz-col [nzSpan]="8">
   <nz-card
     (click)="navigate()"
     nzHoverable
     class="card"
     [nzTitle]="project.name"
+    [nzExtra]="extraTemplate"
   >
-    <p>{{ project.description }}</p>
+    <p nz-typography nzEllipsis [nzEllipsisRows]="1">
+      {{ project.description }}
+    </p>
   </nz-card>
 </div>
-<!-- </div> -->
+
+<ng-template #extraTemplate>
+  <button
+    nz-button
+    (click)="$event.stopPropagation(); deleteProject(project)"
+    nzType="default"
+    nzDanger
+  >
+    <span nz-icon nzType="trash"></span>
+    Delete
+  </button>
+</ng-template>

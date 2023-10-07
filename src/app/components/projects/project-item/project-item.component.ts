@@ -25,6 +25,10 @@ import { CreateOrUpdateDialogComponent } from 'src/app/components/issue/create-o
 import { IssuesStore } from 'src/app/services/issues.store';
 import { IssueCreate } from '../../issue/issue.model';
 import { IssueTableComponent } from '../../issue/issue-table/issue-table.component';
+import { NzGridModule } from 'ng-zorro-antd/grid';
+import { NzCardModule } from 'ng-zorro-antd/card';
+import { NzButtonModule } from 'ng-zorro-antd/button';
+import { NzPaginationModule } from 'ng-zorro-antd/pagination';
 
 @Component({
   selector: 'app-project-item',
@@ -42,16 +46,21 @@ import { IssueTableComponent } from '../../issue/issue-table/issue-table.compone
     MatTableModule,
     MatDialogModule,
     IssueTableComponent,
+    NzGridModule,
+    NzCardModule,
+    NzButtonModule,
+    NzPaginationModule,
   ],
 })
 export class ProjectItemComponent implements OnInit, OnDestroy {
   private readonly route = inject(ActivatedRoute);
   private routeSub!: Subscription;
-  private readonly issuesService = inject(IssuesStore);
+  issuesService = inject(IssuesStore);
   private readonly dialog = inject(MatDialog);
   private readonly projectStore = inject(ProjectsStore);
   private readonly authService = inject(AuthService);
   issues = this.issuesService.issues;
+  issuesCount = this.issuesService.totalIssues;
   private id!: string;
   project!: ProjectWithOwnerId;
   isOwner: boolean = false;
@@ -64,7 +73,8 @@ export class ProjectItemComponent implements OnInit, OnDestroy {
         this.projectStore.getProject(this.id).subscribe({
           next: (value) => {
             this.project = value;
-            this.issuesService.setIssues(value.issues);
+            // this.issuesService.setIssues(value.issues);
+            this.issuesService.getIssuesForProject(this.id, 1);
             if (this.project.ownerId == this.authService.getUser().id) {
               this.isOwner = true;
             }

@@ -17,6 +17,8 @@ import {
 } from '@angular/animations';
 import { NzGridModule } from 'ng-zorro-antd/grid';
 import { NzCardModule } from 'ng-zorro-antd/card';
+import { NzTypographyModule } from 'ng-zorro-antd/typography';
+import { NzButtonModule } from 'ng-zorro-antd/button';
 
 @Component({
   selector: 'app-project-card',
@@ -29,6 +31,8 @@ import { NzCardModule } from 'ng-zorro-antd/card';
     MatDialogModule,
     NzGridModule,
     NzCardModule,
+    NzTypographyModule,
+    NzButtonModule,
   ],
 
   templateUrl: './project-card.component.html',
@@ -62,7 +66,8 @@ export class ProjectCardComponent {
   navigate() {
     this.router.navigate(['/home/your-projects', this.project.id]);
   }
-  deleteProject(project: Project) {
+
+  deleteProject(project: Omit<Project, 'issues'>) {
     const dialogRef = this.dialog.open(DeleteDialogComponent, {
       data: {
         ...project,

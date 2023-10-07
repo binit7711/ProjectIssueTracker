@@ -1,7 +1,7 @@
 <h1 mat-dialog-title>{{ isUpdate ? "Update" : "Create" }} Issue</h1>
 <mat-dialog-content>
   <form [formGroup]="createOrUpdateIssueForm">
-    <mat-form-field>
+    <!-- <mat-form-field>
       <mat-label>Title</mat-label>
       <input matInput formControlName="title" />
     </mat-form-field>
@@ -16,13 +16,100 @@
           {{ status }}
         </mat-option>
       </mat-select>
-    </mat-form-field>
+    </mat-form-field> -->
+    <nz-form-item>
+      <nz-form-control nzErrorTip="Issue title is required">
+        <label>Title</label>
+        <input
+          type="text"
+          nz-input
+          [nzSize]="'large'"
+          formControlName="title"
+          placeholder="Title"
+        />
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-control nzErrorTip="Description must be at least 6 characters">
+        <label>Description</label>
+        <nz-textarea-count [nzMaxCharacterCount]="200">
+          <textarea rows="4" formControlName="description" nz-input></textarea>
+        </nz-textarea-count>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-control nzErrorTip="Status is required">
+        <label>Status</label>
+        <nz-select
+          nzShowSearch
+          formControlName="status"
+          nzPlaceHolder="Select a status"
+        >
+          <nz-option *ngFor="let s of option" [nzValue]="s" [nzLabel]="s">
+            {{ s }}
+          </nz-option>
+        </nz-select>
+      </nz-form-control>
+    </nz-form-item>
   </form>
 </mat-dialog-content>
 
 <mat-dialog-actions align="end">
-  <button mat-stroked-button mat-dialog-close color="warn">Cancel</button>
-  <button (click)="createIssue()" mat-raised-button color="primary">
+  <button style="margin-right: 1rem" nz-button nzDanger mat-dialog-close>
+    Cancel
+  </button>
+  <button
+    [disabled]="createOrUpdateIssueForm.invalid"
+    (click)="createIssue()"
+    nz-button
+    nzType="primary"
+  >
     {{ isUpdate ? "Update" : "Create" }}
   </button>
 </mat-dialog-actions>
+
+<!-- <h2 mat-dialog-title>Project Create</h2>
+<mat-dialog-content>
+  <form [formGroup]="projectCreateOrUpdateForm">
+    <nz-form-item>
+      <nz-form-control nzErrorTip="Project name is required">
+        <label>Title</label>
+        <input
+          type="text"
+          nz-input
+          [nzSize]="'large'"
+          formControlName="name"
+          placeholder="Title"
+        />
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-control nzErrorTip="Description must be at least 6 characters">
+        <label>Description</label>
+        <nz-textarea-count [nzMaxCharacterCount]="200">
+          <textarea rows="4" formControlName="description" nz-input></textarea>
+        </nz-textarea-count>
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button
+    style="margin-right: 1rem"
+    nz-button
+    mat-dialog-close
+    nzType="default"
+    nzDanger
+  >
+    Cancel
+  </button>
+  <button
+    nz-button
+    [disabled]="projectCreateOrUpdateForm.invalid"
+    (click)="createOrUpdateProject()"
+    nzType="primary"
+  >
+    Create
+  </button>
+</mat-dialog-actions> -->

@@ -16,28 +16,47 @@ import { environment } from 'src/environment';
 
 export type IssueState = {
   issues: Issue[];
+  totalIssues: Number;
 };
 
 @Injectable()
 export class IssuesStore {
   private readonly state: WritableSignal<IssueState> = signal({
     issues: [],
+    totalIssues: 0,
   });
+  pageNumber = 1;
+  pageSize = 5;
+
+  totalIssues = computed(() => this.state().totalIssues);
 
   private readonly httpClient = inject(HttpClient);
   issues = computed(() => this.state().issues);
 
   setIssues(issues: Issue[]) {
-    this.state.set({ issues });
+    this.state.set({ issues, totalIssues: this.state().totalIssues });
   }
 
-  getIssuesForProject(projectId: string) {
+  getIssuesForProject(projectId: string, pageIndex: number) {
     this.httpClient
-      .get<Issue[]>(`${environment.baseUrl}/projects/${projectId}/issues`)
+      .get<Issue[]>(
+        `${environment.baseUrl}/projects/${projectId}/issues?pageSize=${this.pageSize}&pageNumber=${pageIndex}`
+      )
       .subscribe({
-        next: (value) => this.state.set({ issues: value }),
-        error: (e) => console.log(e),
+        next: (value) =>
+          this.getIssueCount(projectId).subscribe({
+            next: (v) => {
+              this.pageNumber = pageIndex;
+              this.state.set({
+                issues: value,
+                totalIssues: v.count,
+              });
+            },
+
+            error: (e) => console.log(e),
+          }),
       });
+    console.log(this.state());
   }
 
   createIssueForProject(projectId: string, issue: IssueCreate) {
@@ -46,7 +65,7 @@ export class IssuesStore {
         ...issue,
       })
       .subscribe({
-        next: (_) => this.getIssuesForProject(projectId),
+        next: (_) => this.getIssuesForProject(projectId, this.pageNumber),
       });
   }
 
@@ -56,7 +75,13 @@ export class IssuesStore {
         ...issue,
       })
       .subscribe({
-        next: (_) => this.getIssuesForProject(projectId),
+        next: (_) => this.getIssuesForProject(projectId, this.pageNumber),
       });
+  }
+
+  getIssueCount(projectId: string) {
+    return this.httpClient.get<{ count: number }>(
+      `${environment.baseUrl}/projects/${projectId}/issues/count`
+    );
   }
 }
