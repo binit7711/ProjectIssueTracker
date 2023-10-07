@@ -16,6 +16,11 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { CreateOrUpdateDialogComponent } from '../projects/forms/create-or-update-dialog/create-or-update-dialog.component';
 import { IssuesStore } from 'src/app/services/issues.store';
+import { NzLayoutModule } from 'ng-zorro-antd/layout';
+import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
+import { NzMenuModule } from 'ng-zorro-antd/menu';
+import { NzIconModule } from 'ng-zorro-antd/icon';
+import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 
 @Component({
   selector: 'app-home',
@@ -34,6 +39,11 @@ import { IssuesStore } from 'src/app/services/issues.store';
     RouterModule,
     MatMenuModule,
     MatDialogModule,
+    NzLayoutModule,
+    NzBreadCrumbModule,
+    NzMenuModule,
+    NzIconModule,
+    NzDropDownModule,
   ],
   providers: [ProjectsStore, IssuesStore],
   templateUrl: './home.component.html',

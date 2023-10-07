@@ -1,4 +1,4 @@
-<div class="register">
+<!-- <div class="register">
   <mat-card>
     <mat-card-header>
       <mat-card-title> Register for Project Issue Tracker </mat-card-title>
@@ -43,4 +43,66 @@
       >
     </mat-card-content>
   </mat-card>
+</div> -->
+<div class="register">
+  <div class="card">
+    <h1>Register for Project Issue Tracker</h1>
+    <form
+      nz-form
+      [formGroup]="registerForm"
+      class="register-form"
+      (ngSubmit)="register()"
+    >
+      <nz-form-item>
+        <nz-form-control nzErrorTip="Name field must not be empty">
+          <nz-input-group nzPrefixIcon="tags">
+            <input
+              type="text"
+              nz-input
+              formControlName="name"
+              placeholder="Name"
+            />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-control nzErrorTip="Email must be a valid email">
+          <nz-input-group nzPrefixIcon="user">
+            <input
+              type="email"
+              nz-input
+              formControlName="email"
+              placeholder="Email"
+            />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-control nzErrorTip="Password must be at least 8 characters">
+          <nz-input-group nzPrefixIcon="lock">
+            <input
+              type="password"
+              nz-input
+              formControlName="password"
+              placeholder="Password"
+            />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+      <button
+        nz-button
+        class="login-form-button login-form-margin"
+        [nzType]="'primary'"
+        type="submit"
+        [disabled]="registerForm.invalid"
+      >
+        Register
+      </button>
+      <span class="register-content">
+        Already have an account?
+        <button nz-button [nzType]="'link'" routerLink="/login">Login</button>
+      </span>
+    </form>
+  </div>
 </div>
