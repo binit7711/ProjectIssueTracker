@@ -25,14 +25,14 @@ export const routes: Routes = [
             (c) => c.routes
           ),
       },
+      {
+        path: 'your-issues',
+        loadChildren: () =>
+          import('./components/issue/created-issues/created-issues.route').then(
+            (c) => c.routes
+          ),
+      },
     ],
-    // children: [
-    //   {
-    //     path: 'your-projects',
-    //     component: ProjectsComponent,
-    //     pathMatch: 'full',
-    //   },
-    // ],
   },
   {
     path: 'login',

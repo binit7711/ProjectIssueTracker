@@ -1,73 +1,3 @@
-<!-- <mat-toolbar>
-  <div style="display: flex; justify-content: center; align-items: center">
-     <button (click)="sidenav.toggle()" mat-icon-button>
-      <mat-icon>menu</mat-icon>
-    </button> 
-    <span>Project Issue Tracker</span>
-  </div>
-  <div style="display: flex; justify-content: center; align-items: center">
-    Create
-    <button mat-icon-button [matMenuTriggerFor]="createProjectMenu">
-      <mat-icon>add</mat-icon>
-    </button>
-    Welcome {{ userName }}
-    <button
-      mat-icon-button
-      [matMenuTriggerFor]="menu"
-      aria-label="logout settings"
-    >
-      <mat-icon>person</mat-icon>
-    </button>
-  </div>
-  <mat-menu #createProjectMenu="matMenu">
-    <button (click)="openProjectCreateOrUpdateDialog()" mat-menu-item>
-      <mat-icon>add</mat-icon>
-      <span>Create Project</span>
-    </button>
-  </mat-menu>
-
-  <mat-menu #menu="matMenu">
-    <button (click)="logout()" mat-menu-item>
-      <mat-icon>logout</mat-icon>
-      <span>Logout</span>
-    </button>
-  </mat-menu>
-</mat-toolbar>
-<mat-sidenav-container class="example-container">
-  <mat-sidenav #sidenav mode="side" [(opened)]="opened">
-    <div class="sidenav-menu">
-      <button
-        mat-raised-button
-        routerLink="your-projects"
-        routerLinkActive="mat-accent"
-      >
-        <mat-icon> book </mat-icon>
-        Projects
-      </button>
-      <button mat-button>
-        <mat-icon>group</mat-icon>
-        Collaborations
-      </button>
-      <button mat-button>
-        <mat-icon>flag</mat-icon>
-        Issues
-      </button>
-      <button mat-button>
-        <mat-icon>comment</mat-icon>
-        Comments
-      </button>
-      <button mat-button>
-        <mat-icon>account_circle</mat-icon>
-        Profile
-      </button>
-    </div>
-  </mat-sidenav>
-
-  <mat-sidenav-content>
-    <router-outlet></router-outlet>
-  </mat-sidenav-content>
-</mat-sidenav-container> -->
-
 <nz-layout class="layout">
   <nz-sider nzCollapsible nzWidth="200px">
     <div class="logo">
@@ -90,16 +20,15 @@
         <span nz-icon nzType="usergroup-add"></span>
         <span>Collaborations</span>
       </li>
-
-      <li nz-menu-item nzTitle="Issues">
+      <li
+        routerLink="/home/your-issues"
+        nzMatchRouter="/home/your-issues"
+        nz-menu-item
+        nzTitle="Issues"
+      >
         <span nz-icon nzType="book"></span>
         <span>Issues</span>
       </li>
-
-      <!-- <li nz-menu-item>
-        <span nz-icon nzType="file"></span>
-        <span>File</span>
-      </li> -->
     </ul>
   </nz-sider>
   <nz-layout>
@@ -110,13 +39,7 @@
         <span nz-icon nzType="user"></span>
       </a>
     </nz-header>
-
     <nz-content>
-      <!-- <nz-breadcrumb>
-        <nz-breadcrumb-item>User</nz-breadcrumb-item>
-        <nz-breadcrumb-item>Bill</nz-breadcrumb-item>
-      </nz-breadcrumb> -->
-      <!-- <div class="inner-content">Bill is a cat.</div> -->
       <router-outlet></router-outlet>
     </nz-content>
     <nz-footer>Issue Tracker made by Binit Rupakheti</nz-footer>
