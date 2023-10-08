@@ -12,8 +12,20 @@ export const routes: Routes = [
     component: HomeComponent,
     // pathMatch: 'full',
     canActivate: [authGuard],
-    loadChildren: () =>
-      import('./components/projects/projects.route').then((p) => p.routes),
+    children: [
+      {
+        path: '',
+        loadChildren: () =>
+          import('./components/projects/projects.route').then((p) => p.routes),
+      },
+      {
+        path: 'your-collaborations',
+        loadChildren: () =>
+          import('./components/collaboration/collaboration.route').then(
+            (c) => c.routes
+          ),
+      },
+    ],
     // children: [
     //   {
     //     path: 'your-projects',

@@ -5,7 +5,7 @@ import {
   AutocompleteDataSourceItem,
   NzAutocompleteModule,
 } from 'ng-zorro-antd/auto-complete';
-import { Subject } from 'rxjs';
+import { Subject, debounceTime, distinctUntilChanged } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environment';
 import { NZ_MODAL_DATA } from 'ng-zorro-antd/modal';
@@ -19,10 +19,10 @@ import { AuthService } from 'src/app/services/auth.service';
   template: `
     <div>
       <input
-        placeholder="Search For People"
+        placeholder="Search For People (by Name or Email)"
         nz-input
         [(ngModel)]="inputValue"
-        (input)="onInput($event)"
+        (ngModelChange)="onInput()"
         [nzAutocomplete]="auto"
       />
       <nz-autocomplete #auto>
@@ -43,24 +43,33 @@ export class AddCollaboratorComponent {
   private httpClient = inject(HttpClient);
   collaborators!: AutocompleteDataSourceItem[];
   inputValue: string = '';
-  onInput(event: Event) {
-    const value = (event.target as HTMLInputElement).value;
-    console.log(this.inputValue);
-    if (this.inputValue !== '') {
-      this.httpClient
-        .get<{ email: string; id: string; name: string }[]>(
-          `${environment.baseUrl}/projects/${this.data.projectId}/collaborators?searchQuery=${value}`
-        )
-        .subscribe({
-          next: (value) => {
-            this.collaborators = value
-              .filter((i) => i.email != this.authService.getUser().email)
-              .map((i) => ({
-                label: i.email,
-                value: i.id,
-              }));
-          },
-        });
-    }
+  inputSubject = new Subject<string>();
+  constructor() {
+    this.inputSubject
+      .pipe(
+        debounceTime(300), // Adjust debounce time as needed
+        distinctUntilChanged()
+      )
+      .subscribe((searchTerm) => {
+        if (searchTerm !== '') {
+          this.httpClient
+            .get<{ email: string; id: string; name: string }[]>(
+              `${environment.baseUrl}/projects/${this.data.projectId}/collaborators?searchQuery=${searchTerm}`
+            )
+            .subscribe({
+              next: (value) => {
+                this.collaborators = value
+                  .filter((i) => i.email != this.authService.getUser().email)
+                  .map((i) => ({
+                    label: i.email,
+                    value: i.id,
+                  }));
+              },
+            });
+        }
+      });
+  }
+  onInput() {
+    this.inputSubject.next(this.inputValue);
   }
 }
