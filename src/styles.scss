@@ -29,3 +29,7 @@
 // @include mat.all-component-themes($my-theme);
 // @include project-card.theme($my-theme);
 // @include greeting-card.theme($my-theme);
+
+@tailwind base;
+@tailwind utilities;
+@tailwind components;
