@@ -9,6 +9,7 @@ import {
 } from '@angular/common/http';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { AuthInterceptor } from './interceptors/auth-interceptors';
+import { en_US, provideNzI18n } from 'ng-zorro-antd/i18n';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -16,5 +17,6 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideHttpClient(),
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    provideNzI18n(en_US),
   ],
 };

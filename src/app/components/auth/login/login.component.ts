@@ -16,6 +16,9 @@ import {
 import { AuthService } from 'src/app/services/auth.service';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Router, RouterModule } from '@angular/router';
+import { NzFormModule } from 'ng-zorro-antd/form';
+import { NzInputModule } from 'ng-zorro-antd/input';
+import { NzButtonModule } from 'ng-zorro-antd/button';
 @Component({
   selector: 'app-login',
   standalone: true,
@@ -29,6 +32,9 @@ import { Router, RouterModule } from '@angular/router';
     HttpClientModule,
     MatSnackBarModule,
     RouterModule,
+    NzFormModule,
+    NzInputModule,
+    NzButtonModule,
   ],
   providers: [],
   templateUrl: './login.component.html',
@@ -46,9 +52,11 @@ export class LoginComponent implements OnInit {
   }
   initLoginForm(): void {
     this.loginForm = new FormGroup({
-      email: new FormControl('', { validators: [Validators.email] }),
+      email: new FormControl('', {
+        validators: [Validators.required, Validators.email],
+      }),
       password: new FormControl('', {
-        validators: [Validators.minLength(8)],
+        validators: [Validators.required, Validators.minLength(8)],
       }),
     });
   }

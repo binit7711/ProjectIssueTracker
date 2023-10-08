@@ -1,65 +1,81 @@
-<!-- <mat-card>
-  <mat-card-header>
-    <mat-card-title>
-      {{ project.name }}
-    </mat-card-title>
-    <mat-card-subtitle>Owner name : {{ project.ownerName }}</mat-card-subtitle>
-    <button *ngIf="isOwner" mat-button>Edit Project Details</button>
-  </mat-card-header>
-  <mat-card-content>
-    {{ project.description }}
-    <mat-tab-group>
-      <mat-tab label="Collaborators">
-        <button mat-button (click)="openAddCollaboratorDialog()">
-          Add Collaborator
-        </button>
-      </mat-tab>
-      <mat-tab label="Issues"> Content 2 </mat-tab>
-    </mat-tab-group>
-  </mat-card-content>
-</mat-card> -->
-<mat-grid-list cols="3" rowHeight="4:3">
-  <!-- Main Tile for issues and stuff -->
-  <mat-grid-tile colspan="2" rowspan="2">
-    <mat-card class="card">
-      <mat-card-header>
-        <mat-card-title>
+<div [nzGutter]="[16, 24]" nz-row nzAlign="top" nzJustify="start">
+  <div style="margin-top: 1rem" nz-col nzSpan="18" class="height-100">
+    <nz-card [nzTitle]="title">
+      <ng-template #title>
+        <div class="flex justify-between">
+          <h2 nz-typography>{{ project.name }}</h2>
           <div>
-            {{ project.name }}
+            <button (click)="openEditForm()" nz-button nzType="default">
+              <span nz-icon nzType="edit"></span>
+              Edit
+            </button>
           </div>
-        </mat-card-title>
-        <mat-card-subtitle>{{ project.description }}</mat-card-subtitle>
-      </mat-card-header>
-      <mat-card-content>
-        <div style="display: flex; justify-content: flex-end">
-          <button
-            (click)="openIssueCreateDialog()"
-            mat-stroked-button
-            color="primary"
+        </div>
+      </ng-template>
+      <div class="flex justify-between">
+        <p nz-typography>Description : {{ project.description }}</p>
+        <button (click)="openIssueCreateDialog()" nz-button nzType="primary">
+          Create Issue
+        </button>
+      </div>
+      <h3 nz-typography>List of Issues</h3>
+      <app-issue-table [issues]="issues()"></app-issue-table>
+      <div class="pr-24 flex justify-end">
+        <nz-pagination
+          (nzPageIndexChange)="
+            issuesService.getIssuesForProject(project.id, $event)
+          "
+          [nzPageSize]="issuesService.pageSize"
+          [(nzPageIndex)]="issuesService.pageNumber"
+          [nzTotal]="$any(issuesService.totalIssues())"
+        >
           >
-            <mat-icon> flag </mat-icon>
-            Add Issue
+        </nz-pagination>
+      </div>
+    </nz-card>
+  </div>
+  <div style="margin-top: 1rem" nz-col nzSpan="6" class="height-100">
+    <!-- <div nz-col class="height-50">
+      <nz-card nzTitle="Issues Chart"> Chart Remaining </nz-card>
+    </div> -->
+    <div nz-col style="max-height: 60vh" class="height-50">
+      <nz-card nzTitle="Collaborators">
+        <div style="display: flex; justify-content: flex-end">
+          <button (click)="openAddCollaborator()" nzType="default" nz-button>
+            Add new
           </button>
         </div>
-        <app-issue-table [issues]="issues()"></app-issue-table>
-        <!-- <table mat-table></table> -->
-      </mat-card-content>
-    </mat-card>
-  </mat-grid-tile>
-  <!-- Stats tile/ Issues completed/incomplete etc -->
-  <mat-grid-tile colspan="1">
-    <mat-card class="card">
-      <mat-card-header>
-        <mat-card-title style="text-align: center"> Issues </mat-card-title>
-      </mat-card-header>
-    </mat-card>
-  </mat-grid-tile>
-  <!-- Collaborators tile -->
-  <mat-grid-tile>
-    <mat-card class="card">
-      <mat-card-header>
-        <mat-card-title> Project Collaborators </mat-card-title>
-      </mat-card-header>
-    </mat-card>
-  </mat-grid-tile>
-</mat-grid-list>
+        <nz-list nzItemLayout="horizontal">
+          <nz-list-item
+            *ngFor="let person of project.collaborators; index as i"
+          >
+            <nz-list-item-meta [nzDescription]="person.email">
+              <nz-list-item-meta-title
+                ><div
+                  style="
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                  "
+                >
+                  <a nz-typography>{{ person.name }}</a>
+                  <!-- @ts-ignore -->
+                  <button
+                    (click)="openCollaboratorDelete(person.userId)"
+                    nzDanger
+                    nz-button
+                  >
+                    <span nz-icon nzType="delete"></span>
+                  </button>
+                </div>
+              </nz-list-item-meta-title>
+            </nz-list-item-meta>
+          </nz-list-item>
+          <nz-list-empty
+            *ngIf="project.collaborators.length === 0"
+          ></nz-list-empty>
+        </nz-list>
+      </nz-card>
+    </div>
+  </div>
+</div>

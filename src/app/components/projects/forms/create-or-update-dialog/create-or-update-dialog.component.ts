@@ -11,6 +11,9 @@ import { MatFormField, MatFormFieldModule } from '@angular/material/form-field';
 import { DIALOG_DATA } from '@angular/cdk/dialog';
 import { MatInput, MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
+import { NzButtonModule } from 'ng-zorro-antd/button';
+import { NzFormModule } from 'ng-zorro-antd/form';
+import { NzInputModule } from 'ng-zorro-antd/input';
 
 @Component({
   selector: 'app-create-or-update-dialog',
@@ -22,6 +25,9 @@ import { MatButtonModule } from '@angular/material/button';
     MatDialogModule,
     MatInputModule,
     MatButtonModule,
+    NzButtonModule,
+    NzFormModule,
+    NzInputModule,
   ],
   templateUrl: './create-or-update-dialog.component.html',
   styleUrls: ['./create-or-update-dialog.component.scss'],

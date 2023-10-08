@@ -1,3 +1,4 @@
+import { Collaborator } from '../collaboration/collaborator.model';
 import { Issue } from '../issue/issue.model';
 
 export type Project = {
@@ -6,4 +7,5 @@ export type Project = {
   description: string;
   ownerName: string;
   issues: Issue[];
+  collaborators: Collaborator[];
 };

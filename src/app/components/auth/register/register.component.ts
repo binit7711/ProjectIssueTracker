@@ -16,6 +16,9 @@ import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { Router, RouterModule } from '@angular/router';
+import { NzButtonModule } from 'ng-zorro-antd/button';
+import { NzFormModule } from 'ng-zorro-antd/form';
+import { NzInputModule } from 'ng-zorro-antd/input';
 
 @Component({
   selector: 'app-register',
@@ -30,6 +33,9 @@ import { Router, RouterModule } from '@angular/router';
     HttpClientModule,
     MatSnackBarModule,
     RouterModule,
+    NzFormModule,
+    NzButtonModule,
+    NzInputModule,
   ],
   providers: [],
   templateUrl: './register.component.html',

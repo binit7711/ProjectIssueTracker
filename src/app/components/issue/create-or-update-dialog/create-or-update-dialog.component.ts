@@ -5,7 +5,13 @@ import {
   MatDialogModule,
   MatDialogRef,
 } from '@angular/material/dialog';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormsModule,
+  NgModel,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
@@ -13,6 +19,10 @@ import { MatButtonModule } from '@angular/material/button';
 import { IssuesStore } from 'src/app/services/issues.store';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
+import { NzFormModule } from 'ng-zorro-antd/form';
+import { NzButtonModule } from 'ng-zorro-antd/button';
+import { NzInputModule } from 'ng-zorro-antd/input';
+import { NzSelectModule } from 'ng-zorro-antd/select';
 
 @Component({
   selector: 'app-create-or-update-dialog',
@@ -25,6 +35,11 @@ import { ActivatedRoute } from '@angular/router';
     MatInputModule,
     MatSelectModule,
     MatButtonModule,
+    NzButtonModule,
+    NzFormModule,
+    NzInputModule,
+    NzSelectModule,
+    FormsModule,
   ],
   providers: [IssuesStore],
   templateUrl: './create-or-update-dialog.component.html',
