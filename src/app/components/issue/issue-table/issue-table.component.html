@@ -1,62 +1,15 @@
-<!-- <table mat-table [dataSource]="issues">
-
-  <ng-container matColumnDef="id">
-    <th mat-header-cell *matHeaderCellDef>ID</th>
-    <td mat-cell *matCellDef="let issue">{{ issue.id }}</td>
-  </ng-container>
-
-  <ng-container matColumnDef="creatorName">
-    <th mat-header-cell *matHeaderCellDef>Creator Name</th>
-    <td mat-cell *matCellDef="let issue">{{ issue.creatorName }}</td>
-  </ng-container>
-
-  <ng-container matColumnDef="creatorEmail">
-    <th mat-header-cell *matHeaderCellDef>Creator Email</th>
-    <td mat-cell *matCellDef="let issue">{{ issue.creatorEmail }}</td>
-  </ng-container>
-
-  <ng-container matColumnDef="issueTitle">
-    <th mat-header-cell *matHeaderCellDef>Issue Title</th>
-    <td mat-cell *matCellDef="let issue">{{ issue.title }}</td>
-  </ng-container>
-
-  <ng-container matColumnDef="edit">
-    <th mat-header-cell *matHeaderCellDef>Edit</th>
-    <td mat-cell *matCellDef="let issue">
-      <button (click)="editIssue(issue)" mat-icon-button>
-        <mat-icon>edit</mat-icon>
-      </button>
-    </td>
-  </ng-container>
-
-  <tr
-    mat-header-row
-    *matHeaderRowDef="[
-      'id',
-      'creatorName',
-      'creatorEmail',
-      'issueTitle',
-      'edit'
-    ]"
-  ></tr>
-  <tr
-    mat-row
-    *matRowDef="
-      let row;
-      columns: ['id', 'creatorName', 'creatorEmail', 'issueTitle', 'edit']
-    "
-  ></tr>
-</table> -->
-
-<nz-table [nzFrontPagination]="false" #basicTable [nzData]="issues">
+<nz-table
+  nzSize="small"
+  [nzFrontPagination]="false"
+  #basicTable
+  [nzData]="issues"
+>
   <thead>
     <tr>
       <th>ID</th>
       <th>Title</th>
-      <!-- <th>Description</th> -->
       <th>Created By</th>
       <th>Status</th>
-      <!-- <th>Details</th> -->
       <th>Action</th>
     </tr>
   </thead>
@@ -64,15 +17,9 @@
     <tr *ngFor="let data of basicTable.data">
       <td>{{ data.id }}</td>
       <td>{{ data.title }}</td>
-      <!-- <td>{{ data.description }}</td> -->
       <td>{{ data.creatorName }}</td>
       <td>{{ option[data.status] }}</td>
-      <!-- <td>
-        <a (click)="editIssue(data)">Edit</a>
-      </td> -->
       <td>
-        <!-- <nz-divider nzType="vertical"></nz-divider>
-        <a>Delete</a> -->
         <a
           nzType="primary"
           nz-button
@@ -85,7 +32,11 @@
         </a>
         <nz-dropdown-menu #menu="nzDropdownMenu">
           <ul nz-menu>
-            <li style="padding-left: 1rem; padding-right: 1rem" nz-menu-item>
+            <li
+              (click)="viewIssue(data)"
+              style="padding-left: 1rem; padding-right: 1rem"
+              nz-menu-item
+            >
               <a>View</a>
             </li>
             <li
@@ -95,7 +46,11 @@
             >
               <a>Edit</a>
             </li>
-            <li style="padding-left: 1rem; padding-right: 1rem" nz-menu-item>
+            <li
+              (click)="deleteIssue(data)"
+              style="padding-left: 1rem; padding-right: 1rem"
+              nz-menu-item
+            >
               <a>Delete</a>
             </li>
           </ul>

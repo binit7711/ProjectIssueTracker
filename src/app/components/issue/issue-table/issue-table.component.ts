@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, inject } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatTableModule } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
@@ -15,10 +15,13 @@ import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzPaginationModule } from 'ng-zorro-antd/pagination';
 import { ProjectsStore } from 'src/app/services/projects.store';
+import { ViewModalComponent } from '../../collaboration/view-modal/view-modal.component';
+import { NzModalService } from 'ng-zorro-antd/modal';
 
 @Component({
   selector: 'app-issue-table',
   standalone: true,
+  providers: [NzModalService],
   imports: [
     CommonModule,
     MatTableModule,
@@ -33,11 +36,11 @@ import { ProjectsStore } from 'src/app/services/projects.store';
   templateUrl: './issue-table.component.html',
   styleUrls: ['./issue-table.component.scss'],
 })
-export class IssueTableComponent implements OnInit {
+export class IssueTableComponent implements OnInit, OnDestroy {
   private readonly issuesService = inject(IssuesStore);
   readonly projectsStore = inject(ProjectsStore);
   private dialog = inject(MatDialog);
-  private dialogRef = inject;
+  private modal = inject(NzModalService);
   private id!: string;
   private routeSub!: Subscription;
   private readonly route = inject(ActivatedRoute);
@@ -63,5 +66,47 @@ export class IssueTableComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result) => {
       this.issuesService.updateIssueForProject(this.id, result.data);
     });
+  }
+
+  viewIssue(issue: Issue) {
+    const modalEdit = this.modal.create<ViewModalComponent, Issue>({
+      nzTitle: 'Issue Details',
+      nzContent: ViewModalComponent,
+
+      nzData: {
+        ...issue,
+      },
+      nzFooter: null,
+    });
+
+    modalEdit.afterClose.subscribe();
+  }
+
+  deleteIssue(issue: Issue) {
+    this.modal.confirm({
+      nzTitle: 'Are you sure you want to delete this issue?',
+      nzContent: '<b style="color: red;">This action is irreversible.</b>',
+      nzOkText: 'Yes',
+      nzOkType: 'primary',
+      nzOkDanger: true,
+      nzOnOk: () =>
+        new Promise((res, rej) => {
+          this.issuesService.deleteIssue(this.id, issue.id).subscribe({
+            next: (_) => {
+              res();
+              this.issuesService.getIssuesForProject(
+                this.id,
+                this.issuesService.pageNumber
+              );
+            },
+          });
+        }),
+      nzCancelText: 'No',
+      nzOnCancel: () => {},
+    });
+  }
+
+  ngOnDestroy() {
+    this.routeSub.unsubscribe();
   }
 }

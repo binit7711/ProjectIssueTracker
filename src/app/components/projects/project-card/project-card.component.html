@@ -15,7 +15,7 @@
 <ng-template #extraTemplate>
   <button
     nz-button
-    (click)="$event.stopPropagation(); deleteProject(project)"
+    (click)="$event.stopPropagation(); showConfirm()"
     nzType="default"
     nzDanger
   >
