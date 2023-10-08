@@ -84,11 +84,22 @@ export class ProjectsStore {
   }
 
   deleteProjectForUser(projectId: string) {
-    this.httpClient
+    return this.httpClient
       .delete('https://localhost:7268/api/projects/' + projectId, {})
       .subscribe({
         next: (_) => this.fetchProjectsForUser(this.pageNumber),
       });
+  }
+
+  updateProject(
+    projectName: string,
+    projectId: string,
+    projectDescription: string
+  ) {
+    return this.httpClient.put(`${environment.baseUrl}/projects/${projectId}`, {
+      name: projectName,
+      description: projectDescription,
+    });
   }
 
   getProject(projectId: string) {

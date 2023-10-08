@@ -84,4 +84,16 @@ export class IssuesStore {
       `${environment.baseUrl}/projects/${projectId}/issues/count`
     );
   }
+
+  deleteIssue(projectId: string, id: string) {
+    return this.httpClient.delete(
+      `${environment.baseUrl}/projects/${projectId}/issues/${id}`
+    );
+    // .subscribe({
+    //   next: (_) => {
+    //     console.log(_);
+    //     this.getIssuesForProject(projectId, this.pageNumber);
+    //   },
+    // });
+  }
 }
