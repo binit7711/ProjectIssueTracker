@@ -1,22 +1,6 @@
 <h1 mat-dialog-title>{{ isUpdate ? "Update" : "Create" }} Issue</h1>
 <mat-dialog-content>
   <form [formGroup]="createOrUpdateIssueForm">
-    <!-- <mat-form-field>
-      <mat-label>Title</mat-label>
-      <input matInput formControlName="title" />
-    </mat-form-field>
-    <mat-form-field>
-      <mat-label>Description</mat-label>
-      <textarea matInput formControlName="description"></textarea>
-    </mat-form-field>
-    <mat-form-field>
-      <mat-label>Status</mat-label>
-      <mat-select formControlName="status">
-        <mat-option *ngFor="let status of option" [value]="status">
-          {{ status }}
-        </mat-option>
-      </mat-select>
-    </mat-form-field> -->
     <nz-form-item>
       <nz-form-control nzErrorTip="Issue title is required">
         <label>Title</label>
