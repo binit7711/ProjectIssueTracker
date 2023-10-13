@@ -1,4 +1,4 @@
-import { Component, Input, inject } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
@@ -88,7 +88,7 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
   </nz-table> `,
   styles: [``],
 })
-export class IssueTableComponent {
+export class IssueTableComponent implements OnInit, OnDestroy {
   private readonly issuesService = inject(IssuesStore);
   readonly projectsStore = inject(ProjectsStore);
   private dialog = inject(MatDialog);
@@ -108,6 +108,11 @@ export class IssueTableComponent {
     });
     console.log('owner', this.userId);
   }
+
+  ngOnDestroy(): void {
+    this.routeSub.unsubscribe();
+  }
+
   @Input() issues!: Issue[];
   authservice = inject(AuthService);
   userId = this.authservice.getUser().id;
