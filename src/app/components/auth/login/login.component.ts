@@ -44,6 +44,7 @@ export class LoginComponent implements OnInit {
   private readonly authService = inject(AuthService);
   private readonly snackBar = inject(MatSnackBar);
   private readonly router = inject(Router);
+  error = '';
   user!: UserLogin;
   loginForm!: FormGroup;
   ngOnInit(): void {
@@ -74,6 +75,10 @@ export class LoginComponent implements OnInit {
         console.log('test');
       },
       error: (err) => {
+        // this.error = err.error;
+        // setTimeout(() => {
+        //   this.error = '';
+        // }, 5000);
         console.log(err);
         this.snackBar.open(
           err?.error?.errors?.['Email'] ||

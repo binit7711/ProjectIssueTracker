@@ -60,18 +60,22 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
                 <a>View</a>
               </li>
               <li
+                *ngIf="data.creatorId === userId"
                 [ariaDisabled]="data.creatorId !== userId"
                 [nzDisabled]="data.creatorId !== userId"
                 (click)="editIssue(data)"
-                style="padding-left: 1rem; padding-right: 1rem"
+                style="padding-left: 1rem;
+                padding-right: 1rem"
                 nz-menu-item
               >
                 <a [ariaDisabled]="data.creatorId !== userId">Edit</a>
               </li>
               <li
+                *ngIf="data.creatorId === userId"
                 [nzDisabled]="data.creatorId !== userId"
                 (click)="deleteIssue(data)"
-                style="padding-left: 1rem; padding-right: 1rem"
+                style="padding-left: 1rem;
+                padding-right: 1rem"
                 nz-menu-item
               >
                 <a [ariaDisabled]="data.creatorId !== userId">Delete</a>

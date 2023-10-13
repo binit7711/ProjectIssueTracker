@@ -65,7 +65,10 @@ export class IssuesStore {
         ...issue,
       })
       .subscribe({
-        next: (_) => this.getIssuesForProject(projectId, this.pageNumber),
+        next: (_) => {
+          console.log(_);
+          this.getIssuesForProject(projectId, this.pageNumber);
+        },
       });
   }
 

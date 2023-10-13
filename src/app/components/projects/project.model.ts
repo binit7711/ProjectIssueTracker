@@ -8,4 +8,9 @@ export type Project = {
   ownerName: string;
   issues: Issue[];
   collaborators: Collaborator[];
+  issueMetrics?: {
+    Completed: number;
+    InProgress: number;
+    NotStarted: number;
+  };
 };

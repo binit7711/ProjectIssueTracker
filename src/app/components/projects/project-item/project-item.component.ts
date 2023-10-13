@@ -44,7 +44,7 @@ import { environment } from 'src/environment';
 @Component({
   selector: 'app-project-item',
   standalone: true,
-  providers: [NzModalService],
+  providers: [NzModalService, IssuesStore],
   templateUrl: './project-item.component.html',
   styleUrls: ['./project-item.component.scss'],
   imports: [

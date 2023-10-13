@@ -20,6 +20,10 @@ import { NzCardModule } from 'ng-zorro-antd/card';
 import { NzTypographyModule } from 'ng-zorro-antd/typography';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzModalService } from 'ng-zorro-antd/modal';
+import {
+  NzStatisticComponent,
+  NzStatisticModule,
+} from 'ng-zorro-antd/statistic';
 
 @Component({
   selector: 'app-project-card',
@@ -34,6 +38,7 @@ import { NzModalService } from 'ng-zorro-antd/modal';
     NzCardModule,
     NzTypographyModule,
     NzButtonModule,
+    NzStatisticModule,
   ],
   providers: [NzModalService],
   templateUrl: './project-card.component.html',
@@ -58,13 +63,15 @@ export class ProjectCardComponent {
     this.hoverState = this.hoverState === 'initial' ? 'hovered' : 'initial';
   }
 
-  @Input() project: Pick<Project, 'id' | 'name' | 'description' | 'ownerName'> =
-    {
-      id: '',
-      name: '',
-      description: '',
-      ownerName: '',
-    };
+  @Input() project: Pick<
+    Project,
+    'id' | 'name' | 'description' | 'ownerName' | 'issueMetrics'
+  > = {
+    id: '',
+    name: '',
+    description: '',
+    ownerName: '',
+  };
   navigate() {
     this.router.navigate(['/home/your-projects', this.project.id]);
   }

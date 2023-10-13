@@ -53,11 +53,15 @@ export class RegisterComponent {
   }
   initRegisterForm(): void {
     this.registerForm = new FormGroup({
-      email: new FormControl('', { validators: [Validators.email] }),
-      password: new FormControl('', {
-        validators: [Validators.minLength(8)],
+      email: new FormControl('', {
+        validators: [Validators.required, Validators.email],
       }),
-      name: new FormControl('', { validators: [Validators.minLength(1)] }),
+      password: new FormControl('', {
+        validators: [Validators.required, Validators.minLength(8)],
+      }),
+      name: new FormControl('', {
+        validators: [Validators.required, Validators.minLength(1)],
+      }),
     });
   }
   register(): void {
@@ -79,6 +83,18 @@ export class RegisterComponent {
             JSON.stringify(this.authService.authState())
           );
           this.router.navigate(['home']);
+        },
+        error: (err) => {
+          this.snackBar.open(
+            err?.error?.errors?.['Email'] ||
+              err?.error?.errors?.['Password'] ||
+              err?.error?.errors?.['Name'] ||
+              err?.error,
+            'Close',
+            {
+              duration: 3000,
+            }
+          );
         },
       });
     // console.log(this.registerForm.value);

@@ -34,7 +34,7 @@ export class ProjectsStore {
     totalProjects: 0,
   });
   pageNumber = 1;
-  pageSize = 9;
+  pageSize = 6;
 
   projects = computed(() => this.state().projects);
   totalProjects = computed(() => this.state().totalProjects);
