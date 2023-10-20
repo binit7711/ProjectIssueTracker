@@ -21,6 +21,7 @@ import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
+import { NotificationService } from 'src/app/services/notification.service';
 
 @Component({
   selector: 'app-home',
@@ -45,11 +46,12 @@ import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
     NzIconModule,
     NzDropDownModule,
   ],
-  providers: [ProjectsStore, IssuesStore],
+  providers: [ProjectsStore, IssuesStore, NotificationService],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit {
+  private readonly notificationService = inject(NotificationService);
   private readonly httpClient = inject(HttpClient);
   private readonly snackBar = inject(MatSnackBar);
   private readonly authService = inject(AuthService);
@@ -64,5 +66,10 @@ export class HomeComponent {
   logout() {
     this.authService.logout();
     this.route.navigate(['login']);
+  }
+
+  ngOnInit(): void {
+    this.notificationService.startConnection();
+    this.notificationService.addNotificationListener();
   }
 }
