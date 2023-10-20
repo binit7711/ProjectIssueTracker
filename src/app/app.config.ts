@@ -10,6 +10,8 @@ import {
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { AuthInterceptor } from './interceptors/auth-interceptors';
 import { en_US, provideNzI18n } from 'ng-zorro-antd/i18n';
+import { NotificationService } from './services/notification.service';
+import { provideToastr } from 'ngx-toastr';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -18,5 +20,8 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(),
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
     provideNzI18n(en_US),
+    { provide: NotificationService, multi: false },
+    provideAnimations(), // required animations providers
+    provideToastr(),
   ],
 };
