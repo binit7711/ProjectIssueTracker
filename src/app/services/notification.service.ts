@@ -30,15 +30,18 @@ export class NotificationService {
 
   public addNotificationListener = () => {
     this.hubConnection.on('IssueUpdate', (data) => {
-      console.log('issue update');
-      console.log(data);
       this.toastrService.success(data, 'Issue Update');
+      this.projectsService.fetchProjectsForUser(
+        this.projectsService.pageNumber
+      );
     });
     this.hubConnection.on('CollaboratorUpdate', (data) => {
+      console.log(data);
       this.toastrService.success(data);
     });
     this.hubConnection.on('CollaboratorRemove', (data) => {
-      this.toastrService.info(data);
+      console.log(data);
+      this.toastrService.info(data, 'Collaborator Update');
     });
     this.hubConnection.on('OwnerNotification', (data) => {
       this.toastrService.info(data, 'Project Update');
