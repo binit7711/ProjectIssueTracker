@@ -45,32 +45,25 @@ export class ProjectsStore {
     } else {
       this.pageNumber = pageIndex;
     }
+
     this.httpClient
       .get<Project[]>(
         `${environment.baseUrl}/projects/user/${
           this.authService.getUser().id
         }/?pageNumber=${this.pageNumber}&pageSize=${this.pageSize}`
       )
-      .subscribe({
-        next: (value) => {
-          this.getPageCount().subscribe({
-            next: (value) => {
-              console.log(value);
-              this.state.set({
-                projects: this.state().projects,
-                totalProjects: value.count,
-              });
-            },
-          });
-          this.state.set({
-            projects: value,
-            totalProjects: this.state().totalProjects,
-          });
-          console.log(this.state().totalProjects);
-          console.log('called from fetchprojects', this.projects());
-          console.log(value);
-        },
+      .subscribe((projects) => {
+        this.state.update((value) => ({
+          ...value,
+          projects,
+        }));
       });
+
+    this.getPageCount().subscribe(({ count }) => {
+      this.state.update((value) => {
+        return { ...value, totalProjects: count };
+      });
+    });
   }
 
   createProjectForUser(project: ProjectCreate): void {
