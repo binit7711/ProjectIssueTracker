@@ -28,18 +28,27 @@ export class CreatedIssuesService {
       )
       .subscribe({
         next: (v) => {
-          this.state.mutate((value) => {
-            value.issues = [...v.issues];
-            value.totalCount = v.count;
-          });
+          // this.state.mutate((value) => {
+          //   value.issues = [...v.issues];
+          //   value.totalCount = v.count;
+          // });
+          this.state.update((value) => ({
+            ...value,
+            issues: [...v.issues],
+            totalCount: v.count,
+          }));
         },
       });
   }
 
   loadIssueByPageNumber(pageNum: number) {
-    this.state.mutate((v) => {
-      v.pageNumber = Number(pageNum);
-    });
+    // this.state.mutate((v) => {
+    //   v.pageNumber = Number(pageNum);
+    // });
+    this.state.update((v) => ({
+      ...v,
+      pageNumber: Number(pageNum),
+    }));
     this.loadIssues();
   }
 }

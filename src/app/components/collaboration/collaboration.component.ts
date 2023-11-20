@@ -78,9 +78,7 @@ export class CollaborationComponent implements OnInit {
   }
 
   fetchUserCollaborations(index: number) {
-    this.store.mutate((value) => {
-      value.pageIndex = index;
-    });
+    this.store.update((value) => ({ ...value, pageIndex: index }));
     this.collaborationService.loadProjects();
   }
 }

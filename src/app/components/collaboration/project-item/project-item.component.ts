@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NzGridModule } from 'ng-zorro-antd/grid';
 import { NzCardModule } from 'ng-zorro-antd/card';
@@ -94,7 +94,7 @@ import { NzModalService } from 'ng-zorro-antd/modal';
   </div>`,
   styles: [``],
 })
-export class ProjectItemComponent {
+export class ProjectItemComponent implements OnInit, OnDestroy {
   private readonly issueService = inject(IssuesStore);
   private readonly route = inject(ActivatedRoute);
   project!: ProjectWithOwnerId;
@@ -138,5 +138,8 @@ export class ProjectItemComponent {
     dialogRef.afterClosed().subscribe((result: { data: IssueCreate }) => {
       this.issuesService.createIssueForProject(this.id, result.data);
     });
+  }
+  ngOnDestroy(): void {
+    this.routeSub.unsubscribe();
   }
 }

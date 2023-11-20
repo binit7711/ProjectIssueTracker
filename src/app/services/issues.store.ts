@@ -19,7 +19,7 @@ export type IssueState = {
   totalIssues: Number;
 };
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class IssuesStore {
   private readonly state: WritableSignal<IssueState> = signal({
     issues: [],

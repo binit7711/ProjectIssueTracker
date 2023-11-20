@@ -80,6 +80,7 @@ export class ProjectItemComponent implements OnInit, OnDestroy {
   private id!: string;
   project!: ProjectWithOwnerId;
   isOwner: boolean = false;
+  private activatedRoute = inject(ActivatedRoute);
   ngOnInit(): void {
     this.routeSub = this.route.params.subscribe({
       next: (params) => {
@@ -89,6 +90,13 @@ export class ProjectItemComponent implements OnInit, OnDestroy {
         this.loadProject();
       },
     });
+    // this.activatedRoute.data.subscribe(({ p }) => {
+    //   console.log(p);
+    //   this.project = p;
+    // });
+    // if (this.project.ownerId == this.authService.getUser().id) {
+    //   this.isOwner = true;
+    // }
   }
 
   loadProject() {

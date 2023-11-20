@@ -46,7 +46,7 @@ import { NotificationService } from 'src/app/services/notification.service';
     NzIconModule,
     NzDropDownModule,
   ],
-  providers: [ProjectsStore, IssuesStore, NotificationService],
+  providers: [NotificationService],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
 })

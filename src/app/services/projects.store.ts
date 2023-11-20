@@ -25,7 +25,7 @@ export type ProjectWithOwnerId = Project & {
   ownerId: string;
 };
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class ProjectsStore {
   private readonly authService = inject(AuthService);
   private readonly httpClient = inject(HttpClient);

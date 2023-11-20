@@ -10,7 +10,7 @@ export class NotificationService {
   private toastrService = inject(ToastrService);
   private hubConnection!: signalR.HubConnection;
   private projectsService = inject(ProjectsStore);
-  private httpClient = inject(HttpClient);
+
   public startConnection = () => {
     this.hubConnection = new signalR.HubConnectionBuilder()
       .withUrl('https://localhost:7268/issue-notifications', {

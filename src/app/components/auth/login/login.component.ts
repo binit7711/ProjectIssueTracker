@@ -64,15 +64,12 @@ export class LoginComponent implements OnInit {
   login(): void {
     this.authService.login(this.loginForm.value).subscribe({
       next: (data) => {
-        console.log(data);
         this.authService.authState.set(data);
         localStorage.setItem(
           'user',
           JSON.stringify(this.authService.authState())
         );
         this.router.navigate(['home']);
-
-        console.log('test');
       },
       error: (err) => {
         // this.error = err.error;

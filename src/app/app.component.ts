@@ -6,11 +6,13 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AuthService } from './services/auth.service';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { AuthInterceptor } from './interceptors/auth-interceptors';
+import { ProjectsStore } from './services/projects.store';
+import { IssuesStore } from './services/issues.store';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  providers: [],
+  providers: [ProjectsStore, IssuesStore],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
   imports: [
