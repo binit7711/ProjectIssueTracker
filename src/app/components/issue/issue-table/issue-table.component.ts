@@ -31,8 +31,8 @@ import { NzModalService } from 'ng-zorro-antd/modal';
     NzDividerModule,
     NzDropDownModule,
     NzIconModule,
-    NzPaginationModule,
-  ],
+    NzPaginationModule
+],
   templateUrl: './issue-table.component.html',
   styleUrls: ['./issue-table.component.scss'],
 })

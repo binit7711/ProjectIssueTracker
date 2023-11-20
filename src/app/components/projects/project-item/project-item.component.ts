@@ -62,8 +62,8 @@ import { environment } from 'src/environment';
     NzButtonModule,
     NzPaginationModule,
     NzListModule,
-    NzIconModule,
-  ],
+    NzIconModule
+],
 })
 export class ProjectItemComponent implements OnInit, OnDestroy {
   private readonly route = inject(ActivatedRoute);

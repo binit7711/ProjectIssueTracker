@@ -38,8 +38,8 @@ import {
     NzCardModule,
     NzTypographyModule,
     NzButtonModule,
-    NzStatisticModule,
-  ],
+    NzStatisticModule
+],
   providers: [NzModalService],
   templateUrl: './project-card.component.html',
   styleUrls: ['./project-card.component.scss'],

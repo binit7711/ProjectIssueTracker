@@ -1,5 +1,5 @@
 import { Component, Input, OnDestroy, OnInit, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 import { Issue, IssueCreate } from '../../issue/issue.model';
@@ -17,7 +17,7 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
 @Component({
   selector: 'app-issue-table',
   standalone: true,
-  imports: [CommonModule, NzTableModule, NzDropDownModule, NzIconModule],
+  imports: [NzTableModule, NzDropDownModule, NzIconModule],
   template: `<nz-table
     nzSize="small"
     [nzFrontPagination]="false"
@@ -34,7 +34,8 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let data of basicTable.data">
+      @for (data of basicTable.data; track data) {
+  <tr>
         <td>{{ data.id }}</td>
         <td>{{ data.title }}</td>
         <td>{{ data.creatorName }}</td>
@@ -59,8 +60,9 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
               >
                 <a>View</a>
               </li>
-              <li
-                *ngIf="data.creatorId === userId"
+              @if (data.creatorId === userId) {
+<li
+               
                 [ariaDisabled]="data.creatorId !== userId"
                 [nzDisabled]="data.creatorId !== userId"
                 (click)="editIssue(data)"
@@ -70,8 +72,10 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
               >
                 <a [ariaDisabled]="data.creatorId !== userId">Edit</a>
               </li>
-              <li
-                *ngIf="data.creatorId === userId"
+}
+              @if (data.creatorId === userId) {
+<li
+               
                 [nzDisabled]="data.creatorId !== userId"
                 (click)="deleteIssue(data)"
                 style="padding-left: 1rem;
@@ -80,10 +84,12 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
               >
                 <a [ariaDisabled]="data.creatorId !== userId">Delete</a>
               </li>
+}
             </ul>
           </nz-dropdown-menu>
         </td>
       </tr>
+}
     </tbody>
   </nz-table> `,
   styles: [``],

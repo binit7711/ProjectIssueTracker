@@ -24,8 +24,8 @@ import { MatInputModule } from '@angular/material/input';
     ReactiveFormsModule,
     MatAutocompleteModule,
     MatButtonModule,
-    MatInputModule,
-  ],
+    MatInputModule
+],
   templateUrl: './add-collaborator.component.html',
   styleUrls: ['./add-collaborator.component.scss'],
 })

@@ -20,8 +20,8 @@ import { IssuesStore } from './services/issues.store';
     LoginComponent,
     RouterModule,
     HttpClientModule,
-    MatSnackBarModule,
-  ],
+    MatSnackBarModule
+],
 })
 export class AppComponent implements OnInit {
   title = 'ProjectIssueTracker';

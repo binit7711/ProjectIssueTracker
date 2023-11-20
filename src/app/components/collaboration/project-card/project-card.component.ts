@@ -1,5 +1,5 @@
 import { Component, Input, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { NzCardModule } from 'ng-zorro-antd/card';
 import { NzGridModule } from 'ng-zorro-antd/grid';
 import { Project } from '../collaboration.store';
@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-project-card',
   standalone: true,
-  imports: [CommonModule, NzCardModule, NzGridModule, NzTypographyModule],
+  imports: [NzCardModule, NzGridModule, NzTypographyModule],
   template: ` <div style="margin: 0.5rem" nz-col [nzSpan]="8">
     <nz-card
       (click)="navigate()"

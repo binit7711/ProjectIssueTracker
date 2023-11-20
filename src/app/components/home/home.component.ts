@@ -44,8 +44,8 @@ import { NotificationService } from 'src/app/services/notification.service';
     NzBreadCrumbModule,
     NzMenuModule,
     NzIconModule,
-    NzDropDownModule,
-  ],
+    NzDropDownModule
+],
   providers: [NotificationService],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],

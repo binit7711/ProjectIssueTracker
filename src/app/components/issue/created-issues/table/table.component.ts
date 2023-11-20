@@ -4,7 +4,7 @@ import {
   createEnvironmentInjector,
   inject,
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { NzTableModule } from 'ng-zorro-antd/table';
 import { Issue } from '../../issue.model';
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
@@ -19,7 +19,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-table',
   standalone: true,
-  imports: [CommonModule, NzTableModule, NzDropDownModule, NzIconModule],
+  imports: [NzTableModule, NzDropDownModule, NzIconModule],
   template: `
     <nz-table
       nzSize="small"
@@ -37,7 +37,8 @@ import { Router } from '@angular/router';
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let data of basicTable.data">
+        @for (data of basicTable.data; track data) {
+  <tr>
           <td>{{ data.id }}</td>
           <td>{{ data.title }}</td>
           <td>{{ data.creatorName }}</td>
@@ -80,6 +81,7 @@ import { Router } from '@angular/router';
             </nz-dropdown-menu>
           </td>
         </tr>
+}
       </tbody>
     </nz-table>
   `,

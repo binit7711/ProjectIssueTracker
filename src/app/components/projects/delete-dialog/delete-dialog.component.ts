@@ -21,8 +21,8 @@ import { NzGridModule } from 'ng-zorro-antd/grid';
     MatButtonModule,
     NzButtonModule,
     NzSpaceModule,
-    NzGridModule,
-  ],
+    NzGridModule
+],
   templateUrl: './delete-dialog.component.html',
   styleUrls: ['./delete-dialog.component.scss'],
 })

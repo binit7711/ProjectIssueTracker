@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzCardModule } from 'ng-zorro-antd/card';
@@ -11,13 +11,12 @@ import { NzTypographyModule } from 'ng-zorro-antd/typography';
   selector: 'app-view-modal',
   standalone: true,
   imports: [
-    CommonModule,
     NzFormModule,
     NzInputModule,
     NzCardModule,
     NzModalModule,
-    NzTypographyModule,
-  ],
+    NzTypographyModule
+],
   providers: [NzModalModule],
   template: `<div>
     <h4 nz-typography>Title: {{ data.title }}</h4>

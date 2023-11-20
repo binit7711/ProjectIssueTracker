@@ -1,5 +1,5 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzSelectModule } from 'ng-zorro-antd/select';
@@ -10,12 +10,11 @@ import { NZ_MODAL_DATA } from 'ng-zorro-antd/modal';
   selector: 'app-issue-create',
   standalone: true,
   imports: [
-    CommonModule,
     NzFormModule,
     NzInputModule,
     NzSelectModule,
-    ReactiveFormsModule,
-  ],
+    ReactiveFormsModule
+],
   template: `
     <form [formGroup]="createOrUpdateIssueForm">
       <nz-form-item>
@@ -50,9 +49,11 @@ import { NZ_MODAL_DATA } from 'ng-zorro-antd/modal';
             formControlName="status"
             nzPlaceHolder="Select a status"
           >
-            <nz-option *ngFor="let s of option" [nzValue]="s" [nzLabel]="s">
+            @for (s of option; track s) {
+  <nz-option [nzValue]="s" [nzLabel]="s">
               {{ s }}
             </nz-option>
+}
           </nz-select>
         </nz-form-control>
       </nz-form-item>

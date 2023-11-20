@@ -34,8 +34,8 @@ import { NzButtonModule } from 'ng-zorro-antd/button';
     RouterModule,
     NzFormModule,
     NzInputModule,
-    NzButtonModule,
-  ],
+    NzButtonModule
+],
   providers: [],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],

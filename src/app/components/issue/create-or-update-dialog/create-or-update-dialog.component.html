@@ -29,9 +29,11 @@
           formControlName="status"
           nzPlaceHolder="Select a status"
         >
-          <nz-option *ngFor="let s of option" [nzValue]="s" [nzLabel]="s">
+          @for (s of option; track s) {
+          <nz-option [nzValue]="s" [nzLabel]="s">
             {{ s }}
           </nz-option>
+          }
         </nz-select>
       </nz-form-control>
     </nz-form-item>

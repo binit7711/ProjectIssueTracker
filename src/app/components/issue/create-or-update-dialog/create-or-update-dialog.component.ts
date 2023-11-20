@@ -39,8 +39,8 @@ import { NzSelectModule } from 'ng-zorro-antd/select';
     NzFormModule,
     NzInputModule,
     NzSelectModule,
-    FormsModule,
-  ],
+    FormsModule
+],
   providers: [IssuesStore],
   templateUrl: './create-or-update-dialog.component.html',
   styleUrls: ['./create-or-update-dialog.component.scss'],

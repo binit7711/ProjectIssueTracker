@@ -6,7 +6,7 @@ import {
   inject,
   signal,
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { NzModalService } from 'ng-zorro-antd/modal';
@@ -28,7 +28,7 @@ import { CreatedIssuesService } from './created-issues.service';
 @Component({
   selector: 'app-created-issues',
   standalone: true,
-  imports: [CommonModule, NzPaginationModule, TableComponent],
+  imports: [NzPaginationModule, TableComponent],
   providers: [NzModalService, CreatedIssuesService],
   template: `
     <div class="w-full h-[80vh]">

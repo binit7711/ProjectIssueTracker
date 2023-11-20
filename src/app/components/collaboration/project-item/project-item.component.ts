@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { NzGridModule } from 'ng-zorro-antd/grid';
 import { NzCardModule } from 'ng-zorro-antd/card';
 import { NzPaginationModule } from 'ng-zorro-antd/pagination';
@@ -23,14 +23,13 @@ import { NzModalService } from 'ng-zorro-antd/modal';
   selector: 'app-project-item',
   standalone: true,
   imports: [
-    CommonModule,
     NzGridModule,
     NzCardModule,
     NzPaginationModule,
     IssueTableComponent,
     NzListModule,
-    NzButtonModule,
-  ],
+    NzButtonModule
+],
   providers: [NzModalService],
   template: ` <div [nzGutter]="[16, 24]" nz-row nzAlign="top" nzJustify="start">
     <div style="margin-top: 1rem" nz-col nzSpan="18" class="height-100">
@@ -67,8 +66,9 @@ import { NzModalService } from 'ng-zorro-antd/modal';
       <div nz-col style="max-height: 60vh" class="height-50">
         <nz-card nzTitle="Collaborators">
           <nz-list nzItemLayout="horizontal">
-            <nz-list-item
-              *ngFor="let person of project.collaborators; index as i"
+            @for (person of project.collaborators; track person; let i = $index) {
+  <nz-list-item
+             
             >
               <nz-list-item-meta [nzDescription]="person.email">
                 <nz-list-item-meta-title
@@ -84,9 +84,12 @@ import { NzModalService } from 'ng-zorro-antd/modal';
                 </nz-list-item-meta-title>
               </nz-list-item-meta>
             </nz-list-item>
-            <nz-list-empty
-              *ngIf="project.collaborators.length === 0"
+}
+            @if (project.collaborators.length === 0) {
+<nz-list-empty
+             
             ></nz-list-empty>
+}
           </nz-list>
         </nz-card>
       </div>

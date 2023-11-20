@@ -10,15 +10,21 @@
         formControlName="searchBar"
       />
       <mat-autocomplete #auto="matAutocomplete">
-        <mat-option *ngIf="isLoading" class="is-loading">Loading...</mat-option>
-        <ng-container *ngIf="!isLoading">
-          <mat-option
-            *ngFor="let option of searchResult | async"
+        @if (isLoading) {
+<mat-option class="is-loading">Loading...</mat-option>
+}
+        @if (!isLoading) {
+
+          @for (option of searchResult | async; track option) {
+  <mat-option
+           
             [value]="option"
           >
             <span>{{ option.volumeInfo.title }}</span>
           </mat-option>
-        </ng-container>
+}
+        
+}
       </mat-autocomplete>
     </mat-form-field>
   </form>

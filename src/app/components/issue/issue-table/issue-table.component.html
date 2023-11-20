@@ -14,7 +14,8 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let data of basicTable.data">
+    @for (data of basicTable.data; track data) {
+  <tr>
       <td>{{ data.id }}</td>
       <td>{{ data.title }}</td>
       <td>{{ data.creatorName }}</td>
@@ -57,5 +58,6 @@
         </nz-dropdown-menu>
       </td>
     </tr>
+}
   </tbody>
 </nz-table>

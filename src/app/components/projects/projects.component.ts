@@ -29,8 +29,8 @@ import { Router } from '@angular/router';
     NzGridModule,
     NzButtonModule,
     NzIconModule,
-    NzPaginationModule,
-  ],
+    NzPaginationModule
+],
 })
 export class ProjectsComponent implements OnInit {
   projectsStore = inject(ProjectsStore);

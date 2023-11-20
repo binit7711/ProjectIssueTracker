@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { NzInputModule } from 'ng-zorro-antd/input';
 import {
   AutocompleteDataSourceItem,
@@ -15,7 +15,7 @@ import { AuthService } from 'src/app/services/auth.service';
 @Component({
   selector: 'app-add-collaborator',
   standalone: true,
-  imports: [CommonModule, NzInputModule, NzAutocompleteModule, FormsModule],
+  imports: [NzInputModule, NzAutocompleteModule, FormsModule],
   template: `
     <div>
       <input
@@ -26,12 +26,11 @@ import { AuthService } from 'src/app/services/auth.service';
         [nzAutocomplete]="auto"
       />
       <nz-autocomplete #auto>
-        <nz-auto-option
-          *ngFor="let collaborator of collaborators"
-          [nzValue]="collaborator.label"
-        >
+        @for (collaborator of collaborators; track collaborator) {
+        <nz-auto-option [nzValue]="collaborator.label">
           {{ collaborator.label }}
         </nz-auto-option>
+        }
       </nz-autocomplete>
     </div>
   `,

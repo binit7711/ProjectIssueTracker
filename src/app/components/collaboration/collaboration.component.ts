@@ -1,5 +1,5 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { NzPaginationModule } from 'ng-zorro-antd/pagination';
 import { NzGridModule } from 'ng-zorro-antd/grid';
 import { CollaborationStore } from './collaboration.store';
@@ -8,12 +8,7 @@ import { ProjectCardComponent } from './project-card/project-card.component';
 @Component({
   selector: 'app-collaboration',
   standalone: true,
-  imports: [
-    CommonModule,
-    NzPaginationModule,
-    NzGridModule,
-    ProjectCardComponent,
-  ],
+  imports: [NzPaginationModule, NzGridModule, ProjectCardComponent],
   providers: [CollaborationStore, NzGridModule, NzPaginationModule],
   template: ` <div
       style="display: flex; justify-content: space-between; align-items: center"
@@ -25,7 +20,8 @@ import { ProjectCardComponent } from './project-card/project-card.component';
       </h1>
     </div>
     <div style="min-height: 60vh">
-      <span *ngFor="let project of projects()">
+      @for (project of projects(); track project) {
+      <span>
         <div
           style="display: flex; justify-content: center; align-items: center"
           nz-row
@@ -34,6 +30,7 @@ import { ProjectCardComponent } from './project-card/project-card.component';
           <app-project-card [project]="project" />
         </div>
       </span>
+      }
       <div
         style="
       display: flex;

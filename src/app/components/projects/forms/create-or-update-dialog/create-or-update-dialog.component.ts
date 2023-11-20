@@ -27,8 +27,8 @@ import { NzInputModule } from 'ng-zorro-antd/input';
     MatButtonModule,
     NzButtonModule,
     NzFormModule,
-    NzInputModule,
-  ],
+    NzInputModule
+],
   templateUrl: './create-or-update-dialog.component.html',
   styleUrls: ['./create-or-update-dialog.component.scss'],
 })

@@ -46,8 +46,9 @@
           </button>
         </div>
         <nz-list nzItemLayout="horizontal">
-          <nz-list-item
-            *ngFor="let person of project.collaborators; index as i"
+          @for (person of project.collaborators; track person; let i = $index) {
+  <nz-list-item
+           
           >
             <nz-list-item-meta [nzDescription]="person.email">
               <nz-list-item-meta-title
@@ -71,9 +72,12 @@
               </nz-list-item-meta-title>
             </nz-list-item-meta>
           </nz-list-item>
-          <nz-list-empty
-            *ngIf="project.collaborators.length === 0"
+}
+          @if (project.collaborators.length === 0) {
+<nz-list-empty
+           
           ></nz-list-empty>
+}
         </nz-list>
       </nz-card>
     </div>
